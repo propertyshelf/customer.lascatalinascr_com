@@ -10,7 +10,7 @@
     
     <plone:portletRenderer
         portlet="plone.mls.listing.portlets.quick_search.IQuickSearchPortlet"
-        template="templates/filterportlet.pt"
+        class="customer.lascatalinascr_com.portlets.filter_search.FilterSearch"
         layer="customer.lascatalinascr_com.browser.interfaces.ICustomerLascatalinascrComLayer"
         zcml:condition="installed plone.mls.listing"
      />
