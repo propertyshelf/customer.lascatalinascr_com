@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:plone="http://namespaces.plone.org/plone">
 
     <include package="plone.app.portlets" />
@@ -11,5 +12,6 @@
         portlet="plone.mls.listing.portlets.quick_search.IQuickSearchPortlet"
         template="templates/filterportlet.pt"
         layer="customer.lascatalinascr_com.browser.interfaces.ICustomerLascatalinascrComLayer"
+        zcml:condition="installed plone.mls.listing"
      />
 </configure>
