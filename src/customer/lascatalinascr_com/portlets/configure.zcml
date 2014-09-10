@@ -6,12 +6,23 @@
     <include package="plone.app.portlets" />
 
     <!-- Extend Listing Quick Search Portlet. -->
-    <!-- ============================= -->
+    <!-- ==================================== -->
     
     <plone:portletRenderer
         portlet="plone.mls.listing.portlets.quick_search.IQuickSearchPortlet"
-        class="customer.lascatalinascr_com.portlets.filter_search.FilterSearch"
+        class="customer.lascatalinascr_com.portlets.filter_search.Renderer"
         layer="customer.lascatalinascr_com.browser.interfaces.ICustomerLascatalinascrComLayer"
         zcml:condition="installed plone.mls.listing"
      />
+     <!-- New Filter Portlet            -->
+     <!-- ============================= -->
+    <plone:portlet
+        name="portlets.FilterSearch"
+        addview=".filter_search.AddForm"
+        assignment=".filter_search.Assignment"
+        editview=".filter_search.EditForm"
+        interface=".filter_search.IFilterSearchPortlet"
+        renderer=".filter_search.Renderer"
+    />
+
 </configure>

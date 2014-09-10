@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<portlets>
+  <portlet
+      addview="portlets.FilterSearch"
+      title="Filter Listing Search"
+      description="A portlet displaying a Ajax filter for MLS Listings."
+  />
+</portlets>
