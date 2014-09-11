@@ -274,7 +274,7 @@ class Assignment(base.Assignment):
     heading_filter = FieldProperty(IFilterSearchPortlet['heading_filter'])
     target_search = None
 
-    title = _(u'Search Listings')
+    title = _(u'Ajax Filter Listings')
     title_filter = _(u'Filter Results')
     mode = 'SEARCH'
 

@@ -7,13 +7,14 @@
 
     <!-- Extend Listing Quick Search Portlet. -->
     <!-- ==================================== -->
-    
+    <!--
     <plone:portletRenderer
         portlet="plone.mls.listing.portlets.quick_search.IQuickSearchPortlet"
         class="customer.lascatalinascr_com.portlets.filter_search.Renderer"
         layer="customer.lascatalinascr_com.browser.interfaces.ICustomerLascatalinascrComLayer"
         zcml:condition="installed plone.mls.listing"
      />
+ -->
      <!-- New Filter Portlet            -->
      <!-- ============================= -->
     <plone:portlet
@@ -23,6 +24,8 @@
         editview=".filter_search.EditForm"
         interface=".filter_search.IFilterSearchPortlet"
         renderer=".filter_search.Renderer"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
     />
 
 </configure>
