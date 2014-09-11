@@ -7,7 +7,7 @@
     i18n:domain="customer.lascatalinascr_com"
     tal:omit-tag="">
     
-    <dl class="portlet portletListingFilter aJaXFilter">
+    <dl class="portlet portletFilterSearch aJaXFilter">
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
             <span tal:omit-tag="" tal:content="view/title | nothing"></span>

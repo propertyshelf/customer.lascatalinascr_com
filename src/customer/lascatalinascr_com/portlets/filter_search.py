@@ -2,13 +2,10 @@
 """ Listing Filter Portlet"""
 
 # zope imports
-from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -28,14 +25,13 @@ except ImportError:
 
 try:
     # try to extend plone.mls.listing QuickSearch Renderer
-    from plone.mls.listing.portlets.quick_search import Renderer as PortletRenderer
     from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
-    from plone.mls.listing.browser import listing_search
+    from plone.mls.listing.browser import listing_collection
+
     PLONE_MLS_LISTING = True
 
 except ImportError:
     # define fallbacks if plone.mls.listing is not installed
-    from plone.app.portlets.portlets.base import Renderer as PortletRenderer
     from z3c.form.browser.checkbox import CheckBoxFieldWidget as ValueRangeFieldWidget
     PLONE_MLS_LISTING = False
 
@@ -50,25 +46,23 @@ FIELD_ORDER = {
     'row_listing_type': [
         'listing_type',
     ],
-    'row_beds_baths': [
+    'row_beds': [
         'beds',
     ],
     
-    'row_object_type': [
+    'row_view_type': [
         'view_type',
-        'pool',
     ],
-    'row_price': [
+    'row_price_sale': [
         'price_sale',
-        'price_rent',
-    ],  
-
-    'row_filter': [
-        'air_condition',
-        'jacuzzi',
-        'location_type',
-        'geographic_type',
     ],
+    'row_price_rent': [
+        'price_sale',
+    ], 
+    'row_pool': [
+        'pool',
+    ],    
+
 }
 
 
@@ -130,19 +124,6 @@ class IFilterSearchLC(form.Schema):
     )
 
 
-class FilterSearch(PortletRenderer):
-    """Class containing customizations for the ListingQuickSearch"""
-    render = ViewPageTemplateFile('templates/filterportlet.pt')
-
-    def update(self):
-        z2.switch_on(self, request_layer=IFormLayer)
-        self.form = FilterSearchForm(aq_inner(self.context), self.request, self.data)
-
-        if HAS_WRAPPED_FORM:
-            alsoProvides(self.form, IWrappedForm)
-            self.form.update()
-
-
 class FilterSearchForm(form.Form):
     """Filter Search Form."""
     
@@ -181,11 +162,7 @@ class FilterSearchForm(form.Form):
     @property
     def action(self):
         """See interfaces.IInputForm."""
-        p_state = self.context.unrestrictedTraverse("@@plone_portal_state")
-        search_path = self.data.target_search
-        if search_path.startswith('/'):
-            search_path = search_path[1:]
-        return '/'.join([p_state.portal_url(), search_path])
+        return '#'
 
     def _widgets(self, row):
         """Return a list of widgets that should be shown for a given row."""
@@ -193,48 +170,31 @@ class FilterSearchForm(form.Form):
         available_fields = FIELD_ORDER.get(row, [])
         return [widget_data.get(field, None) for field in available_fields]
 
-    @property
-    def show_filter(self):
-        """Decides if the filter should be shown or not."""
-        form = self.request.form
-        return listing_search.IListingSearch.providedBy(self.context) and \
-            'form.buttons.search' in form.keys()
 
     def widgets_listing_type(self):
         """Return the widgets for the row ``row_listing_type``."""
         return self._widgets('row_listing_type')
 
-    def widgets_location(self):
-        """Return the widgets for the row ``row_location``."""
-        return self._widgets('row_location')
+    def widgets_beds(self):
+        """Return the widgets for the row ``row_beds``."""
+        return self._widgets('row_beds')
 
-    def widgets_beds_baths(self):
-        """Return the widgets for the row ``row_beds_baths``."""
-        return self._widgets('row_beds_baths')
+    def widgets_view_type(self):
+        """Return the widgets for the row ``row_view_type``."""
+        return self._widgets('row_view_type')
 
-    def widgets_object_type(self):
-        """Return the widgets for the row ``row_object_type``."""
-        return self._widgets('row_object_type')
+    def widgets_price_sale(self):
+        """Return the widgets for the row ``row_price_sale``."""
+        return self._widgets('row_price_sale')
 
-    def widgets_price(self):
-        """Return the widgets for the row ``row_price``."""
-        return self._widgets('row_price')
+    def widgets_price_rent(self):
+        """Return the widgets for the row ``row_price_rent``."""
+        return self._widgets('row_price_rent')
 
-    def widgets_sizes(self):
-        """Return the widgets for the row ``row_sizes``."""
-        return self._widgets('row_sizes')
+    def widgets_pool(self):
+        """Return the widgets for the row ``row_pool``."""
+        return self._widgets('row_pool')
 
-    def widgets_filter(self):
-        """Return the widgets for the row ``row_filter``."""
-        return self._widgets('row_filter')
-
-    def widgets_filter_other(self):
-        """Return all other widgets that have not been shown until now."""
-        defined_fields = FIELD_ORDER.values()
-        shown_fields = [shown_field for field_lists in defined_fields for
-                        shown_field in field_lists]
-        return [widget for field_name, widget in self.widgets.items() if not
-                field_name in shown_fields]
 
 class IFilterSearchPortlet(IPortletDataProvider):
     """A portlet displaying a custom ajax listing search form."""
@@ -247,42 +207,17 @@ class IFilterSearchPortlet(IPortletDataProvider):
         title=_(u'Portlet Title (Search)'),
     )
 
-    heading_filter = schema.TextLine(
-        description=_(
-            u'Custom title for the portlet (filter mode). If no title is '
-            u'provided, the default title is used.'
-        ),      
-        required=False,
-        title=_(u'Portlet Title (Filter)'),
-        )
-
-    target_search = schema.Choice(
-        description=_(u'Find the search page which will be used to show the results.'),
-        required=True,
-        source=SearchableTextSourceBinder({
-            'object_provides':  'plone.mls.listing.browser.listing_search.'
-                                'IListingSearch',
-        }, default_query='path:'),
-        title=_(u'Search Page'),
-    )
-
 @implementer(IFilterSearchPortlet)
 class Assignment(base.Assignment):
     """Filter Search Portlet Assignment."""
 
     heading = FieldProperty(IFilterSearchPortlet['heading'])
-    heading_filter = FieldProperty(IFilterSearchPortlet['heading_filter'])
-    target_search = None
-
+    
     title = _(u'Ajax Filter Listings')
-    title_filter = _(u'Filter Results')
     mode = 'SEARCH'
 
     def __init__(self, heading=None, heading_filter=None, target_search=None):
         self.heading = heading
-        self.heading_filter = heading_filter
-        self.target_search = target_search
-
 
 class Renderer(base.Renderer):
     """Listing FilterSearch Portlet Renderer."""
@@ -291,50 +226,26 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         """Check the portlet availability."""
-        search_path = self.data.target_search
-
-        if search_path is None:
-            return False
-
-        if search_path.startswith('/'):
-            search_path = search_path[1:]
-
-        try:
-            search_view = self.context.restrictedTraverse(search_path)
-        except Unauthorized:
-            return False
-
-        return listing_search.IListingSearch.providedBy(search_view) and \
-            self.mode != 'HIDDEN'
+        """Show on ListingCollections """
+        return listing_collection.IListingCollection.providedBy(self.context)
 
     @property
     def title(self):
-        """Return the title dependend on the mode that we are in."""
-        if self.mode == 'SEARCH':
-            if self.data.heading is not None:
-                return self.data.heading
-            return self.data.title
-        if self.mode == 'FILTER':
-            if self.data.heading_filter is not None:
-                return self.data.heading_filter
-            return self.data.title_filter
-
+        """Return the title"""
+        if self.data.heading is not None:
+            return self.data.heading
+        return self.data.title
+        
     @property
     def mode(self):
         """Return the mode that we are in.
-
-        This can be either ``FILTER`` if a search was already performed and we
-        are on a search page or ``SEARCH`` otherwise.
+            ``SEARCH`` will be returned on valid context
+            ``HIDDEN`` will be returned on invalid context
         """
-        form = self.request.form
-        if listing_search.IListingSearch.providedBy(self.context) and \
-                'form.buttons.search' in form.keys():
-            return 'FILTER'
-        elif listing_search.IListingSearch.providedBy(self.context) and \
-                not 'form.buttons.search' in form.keys():
-            return 'HIDDEN'
-        else:
+        if listing_collection.IListingCollection.providedBy(self.context):
             return 'SEARCH'
+        else:
+            return 'HIDDEN'
 
     def update(self):
         z2.switch_on(self, request_layer=IFormLayer)
@@ -348,8 +259,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """Add form for the Listing FilterSearch portlet."""
     form_fields = formlib.form.Fields(IFilterSearchPortlet)
-    form_fields['target_search'].custom_widget = UberSelectionWidget
-
+    
     label = _(u'Add FilterSearch portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -362,10 +272,7 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Listing FilterSearch portlet."""
     form_fields = formlib.form.Fields(IFilterSearchPortlet)
-    form_fields['target_search'].custom_widget = UberSelectionWidget
-
+    
     label = _(u'Edit FilterSearch portlet')
     description = MSG_PORTLET_DESCRIPTION
-
-
 

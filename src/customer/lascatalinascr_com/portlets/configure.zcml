@@ -4,19 +4,9 @@
     xmlns:plone="http://namespaces.plone.org/plone">
 
     <include package="plone.app.portlets" />
-
-    <!-- Extend Listing Quick Search Portlet. -->
-    <!-- ==================================== -->
-    <!--
-    <plone:portletRenderer
-        portlet="plone.mls.listing.portlets.quick_search.IQuickSearchPortlet"
-        class="customer.lascatalinascr_com.portlets.filter_search.Renderer"
-        layer="customer.lascatalinascr_com.browser.interfaces.ICustomerLascatalinascrComLayer"
-        zcml:condition="installed plone.mls.listing"
-     />
- -->
-     <!-- New Filter Portlet            -->
-     <!-- ============================= -->
+    
+    <!-- New Filter Portlet            -->
+    <!-- ============================= -->
     <plone:portlet
         name="portlets.FilterSearch"
         addview=".filter_search.AddForm"
