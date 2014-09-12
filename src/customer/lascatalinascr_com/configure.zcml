@@ -21,5 +21,38 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
-  
+
+  <!-- Vocabularies for listing searches. -->
+  <!-- ================================== -->
+
+  <utility
+      component=".vocabularies.ListingTypesVocabularyFactory"
+      name="lasCatalinas.ListingTypesVocabulary"
+      />
+
+  <utility
+      component=".vocabularies.BedRoomsVocabularyFactory"
+      name="lasCatalinas.BedRoomsVocabulary"
+      />
+
+  <utility
+      component=".vocabularies.ViewVocabularyFactory"
+      name="lasCatalinas.ViewVocabulary"
+      />
+
+  <utility
+      component=".vocabularies.PriceSaleVocabularyFactory"
+      name="lasCatalinas.PriceSaleVocabulary"
+      />
+
+  <utility
+      component=".vocabularies.PriceRentVocabularyFactory"
+      name="lasCatalinas.PriceRentVocabulary"
+      />
+
+    <utility
+      component=".vocabularies.YesNoVocabularyFactory"
+      name="lasCatalinas.YesNoVocabulary"
+      />
+ 
 </configure>

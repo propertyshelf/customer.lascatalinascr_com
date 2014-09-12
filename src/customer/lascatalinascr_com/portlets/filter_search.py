@@ -25,14 +25,11 @@ except ImportError:
 
 try:
     # try to extend plone.mls.listing QuickSearch Renderer
-    from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
     from plone.mls.listing.browser import listing_collection
-
     PLONE_MLS_LISTING = True
 
 except ImportError:
     # define fallbacks if plone.mls.listing is not installed
-    from z3c.form.browser.checkbox import CheckBoxFieldWidget as ValueRangeFieldWidget
     PLONE_MLS_LISTING = False
 
 #local imports
@@ -52,6 +49,10 @@ FIELD_ORDER = {
     
     'row_view_type': [
         'view_type',
+    ],
+    'row_price': [
+        'price_min',
+        'price_max',
     ],
     'row_price_sale': [
         'price_sale',
@@ -74,7 +75,7 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ListingTypes'
+            source='lasCatalinas.ListingTypesVocabulary'
         ),
     )
 
@@ -82,7 +83,7 @@ class IFilterSearchLC(form.Schema):
     beds = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='plone.mls.listing.Rooms',
+        source='lasCatalinas.BedRoomsVocabulary',
         title=_(u'Number of Bedrooms'),
     )
 
@@ -91,35 +92,41 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'View'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ViewTypes'
+            source='lasCatalinas.ViewVocabulary'
         ),
     )
 
-    form.widget(price_sale=ValueRangeFieldWidget)
-    price_sale = schema.Tuple(
+    price_min = schema.Int(
+        required=False,
+        title=_(u'Price'),
+    )
+
+    price_max = schema.Int(
+        required=False,
+        title=_(u'Price (Max)'),
+    )
+
+    form.widget(price_sale=radio.RadioFieldWidget)
+    price_sale = schema.Choice(
         default=('--MINVALUE--', '--MAXVALUE--'),
         required=False,
         title=_(u'Sales Price Range'),
-        value_type=schema.Choice(
-            source='plone.mls.listing.Rooms',
-        ),
+        source='lasCatalinas.PriceSaleVocabulary',
     )
 
-    form.widget(price_rent=ValueRangeFieldWidget)
-    price_rent = schema.Tuple(
+    form.widget(price_rent=radio.RadioFieldWidget)
+    price_rent = schema.Choice(
         default=('--MINVALUE--', '--MAXVALUE--'),
         required=False,
         title=_(u'Monthly Rental Price Range'),
-        value_type=schema.Choice(
-            source='plone.mls.listing.Rooms',
-        ),
+        source='lasCatalinas.PriceRentVocabulary',
     )
 
     form.widget(pool=radio.RadioFieldWidget)
     pool = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='plone.mls.listing.YesNoAll',
+        source='lasCatalinas.YesNoVocabulary',
         title=_(u'Private Pool'),
     )
 
@@ -135,8 +142,8 @@ class FilterSearchForm(form.Form):
     fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['beds'].widgetFactory = radio.RadioFieldWidget
     fields['view_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['price_sale'].widgetFactory = ValueRangeFieldWidget
-    fields['price_rent'].widgetFactory = ValueRangeFieldWidget
+    fields['price_sale'].widgetFactory = radio.RadioFieldWidget
+    fields['price_rent'].widgetFactory = radio.RadioFieldWidget
     fields['pool'].widgetFactory = radio.RadioFieldWidget
 
     def __init__(self, context, request, data=None):
@@ -218,6 +225,7 @@ class Assignment(base.Assignment):
 
     def __init__(self, heading=None, heading_filter=None, target_search=None):
         self.heading = heading
+
 
 class Renderer(base.Renderer):
     """Listing FilterSearch Portlet Renderer."""
