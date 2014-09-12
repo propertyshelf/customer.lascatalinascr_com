@@ -58,7 +58,7 @@ FIELD_ORDER = {
         'price_sale',
     ],
     'row_price_rent': [
-        'price_sale',
+        'price_rent',
     ], 
     'row_pool': [
         'pool',
@@ -108,7 +108,7 @@ class IFilterSearchLC(form.Schema):
 
     form.widget(price_sale=radio.RadioFieldWidget)
     price_sale = schema.Choice(
-        default=('--MINVALUE--', '--MAXVALUE--'),
+        default='--NOVALUE--',
         required=False,
         title=_(u'Sales Price Range'),
         source='lasCatalinas.PriceSaleVocabulary',
@@ -116,7 +116,7 @@ class IFilterSearchLC(form.Schema):
 
     form.widget(price_rent=radio.RadioFieldWidget)
     price_rent = schema.Choice(
-        default=('--MINVALUE--', '--MAXVALUE--'),
+        default='--NOVALUE--',
         required=False,
         title=_(u'Monthly Rental Price Range'),
         source='lasCatalinas.PriceRentVocabulary',
@@ -189,6 +189,10 @@ class FilterSearchForm(form.Form):
     def widgets_view_type(self):
         """Return the widgets for the row ``row_view_type``."""
         return self._widgets('row_view_type')
+
+    def widgets_price(self):
+        """Return the widgets for the row ``row_price``."""
+        return self._widgets('row_price')
 
     def widgets_price_sale(self):
         """Return the widgets for the row ``row_price_sale``."""
