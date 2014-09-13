@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:zcml="http://namespaces.zope.org/zcml"
     xmlns:plone="http://namespaces.plone.org/plone">
 
@@ -16,6 +17,13 @@
         renderer=".filter_search.Renderer"
         view_permission="zope2.View"
         edit_permission="cmf.ManagePortal"
+    />
+
+    <browser:page
+        for="*"
+        name="ajaxListingSearch"
+        permission="zope2.Public"
+        class=".ajax_search.ajaxSearch"
     />
 
 </configure>
