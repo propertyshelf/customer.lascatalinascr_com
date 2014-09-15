@@ -7,7 +7,7 @@ from zope.traversing.browser.absoluteurl import absoluteURL
 
 #plone.mls.listing imports
 from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing.api import prepare_search_params, search
+from plone.mls.listing.api import search
 
 class ajaxSearch(BrowserView):
     """Deliver search results for ajax calls"""
