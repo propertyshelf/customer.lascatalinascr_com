@@ -24,7 +24,6 @@
 -->
 
     <tal:listings tal:condition="listings">
-        rasta?
       <h2 i18n:domain="plone"
           tal:condition="results"><span
           i18n:translate="batch_x_items_matching_your_criteria"><span
