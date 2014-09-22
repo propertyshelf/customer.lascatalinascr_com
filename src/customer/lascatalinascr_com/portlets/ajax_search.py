@@ -7,7 +7,18 @@ from zope.traversing.browser.absoluteurl import absoluteURL
 
 #plone.mls.listing imports
 from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing.api import search
+from plone.mls.listing.api import prepare_search_params, search
+
+def encode_dict(in_dict):
+    out_dict = {}
+    for k, v in in_dict.iteritems():
+        if isinstance(v, unicode):
+            v = v.encode('utf8')
+        elif isinstance(v, str):
+            # Must be encoded in UTF-8
+            v.decode('utf8')
+        out_dict[k] = v
+    return out_dict
 
 class ajaxSearch(BrowserView):
     """Deliver search results for ajax calls"""
@@ -32,6 +43,9 @@ class ajaxSearch(BrowserView):
                                                 name='plone_portal_state')
         self.context_state = queryMultiAdapter((self.context, self.request),
                                                name='plone_context_state')
+
+        self.request.form = encode_dict(self.request.form)
+
         request_params = self._get_params
         self._get_listings(request_params)
 
@@ -47,7 +61,7 @@ class ajaxSearch(BrowserView):
     def _get_params(self):
         """map MLS search with custom UI"""
         params={}
-        return params
+        return prepare_search_params(params)
 
     def _get_listings(self, params):
         """Query the recent listings from the MLS."""
