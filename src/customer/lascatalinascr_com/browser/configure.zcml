@@ -1,5 +1,29 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="customer.lascatalinascr_com">
+
+    <configure zcml:condition="installed plone.mls.listing">
+
+        <!-- Propertyshelf Listings. -->
+        <browser:page
+            for="*"
+            class="plone.mls.listing.browser.views.ListingDetails"
+            layer=".interfaces.ILascatalinascrListingLayer"
+            name="listing-detail"
+            permission="zope2.View"
+            template="templates/listing_details.pt"
+      />
+
+        <browser:page
+            for="plone.mls.listing.content.listing.IListing"
+            class="plone.mls.listing.browser.views.ListingDetails"
+            layer=".interfaces.ILascatalinascrListingLayer"
+            name="view"
+            permission="zope2.View"
+            template="templates/listing_details.pt"/>
+
+    </configure>
 </configure>

@@ -9,7 +9,7 @@
 
   <body>
     <metal:main fill-slot="main">
-      <div class="listing detail" metal:define-macro="main" 
+      <div class="listing detail" metal:define-macro="main" tal:on-error="nothing"
           tal:define="info view/info | nothing;
                     listing view/info | nothing;
                     listing_id listing/id/value;
