@@ -18,9 +18,8 @@
                     price_raw listing/price_raw/value;
                     price_rent python: '&#36;%d /day'%(price_raw/30);
                     listing_price python: price_rent if listing_category == 'rent' else price_org;
-                    preview_id string:preview_${listing/id/value};"
-
->
+                    preview_id string:preview_${listing/id/value};">
+                    
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
         <h1 class="documentFirstHeading"><span tal:replace="view/title | nothing">[Title]</span></h1>
