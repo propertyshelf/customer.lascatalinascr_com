@@ -25,7 +25,8 @@ except ImportError:
 
 try:
     # try to extend plone.mls.listing QuickSearch Renderer
-    from plone.mls.listing.browser import listing_collection
+    from plone.mls.listing.browser import listing_collection, listing_search, recent_listings
+    from plone.mls.listing.browser.interfaces import IListingDetails
     PLONE_MLS_LISTING = True
 
 except ImportError:
@@ -238,8 +239,27 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         """Check the portlet availability."""
-        """Show on ListingCollections """
-        return listing_collection.IListingCollection.providedBy(self.context)
+        """Show on ListingCollections, Recent Listings, Listing Search """
+        form = self.request.form
+        show = False
+
+        #available for ListingCollections
+        if listing_collection.IListingCollection.providedBy(self.context):
+            show = True
+        #available for Recent Listings
+        if recent_listings.IRecentListings.providedBy(self.context):
+            show = True
+        #available for Listing Search in Result Mode
+        
+        if listing_search.IListingSearch.providedBy(self.context) and \
+                'form.buttons.search' in form.keys():
+            show = True
+        
+        #available for ListingDetails
+        if getattr(self.request, 'listing_id', None) is not None:
+            show = True
+
+        return show
 
     @property
     def title(self):
