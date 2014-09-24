@@ -170,7 +170,7 @@ class FilterSearchForm(form.Form):
     @property
     def action(self):
         """See interfaces.IInputForm."""
-        return '#'
+        return '@@ajaxListingSearch'
 
     def _widgets(self, row):
         """Return a list of widgets that should be shown for a given row."""
