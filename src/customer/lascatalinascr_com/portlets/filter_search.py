@@ -26,7 +26,6 @@ except ImportError:
 try:
     # try to extend plone.mls.listing QuickSearch Renderer
     from plone.mls.listing.browser import listing_collection, listing_search, recent_listings
-    from plone.mls.listing.browser.interfaces import IListingDetails
     PLONE_MLS_LISTING = True
 
 except ImportError:
