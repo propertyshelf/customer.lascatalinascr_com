@@ -29,20 +29,36 @@ VIEW_VALUES = [
     ('oceanfront', _(u'Ocean Front')),
 ]
 
-PRICE_SALE_VALUES = [
+PRICE_SALE_DISPLAY = [
     ('250k', _(u'$250,000 - $500,000')),
     ('500k', _(u'$500,000 - $1,000,000')),
     ('1000k', _(u'$1,000,000 - $2,000,000')),
     ('2000k', _(u'$2,000,000+')),
 ]
 
-PRICE_RENT_VALUES = [
+PRICE_SALE_VALUES = {
+    '250k':  {"min":  250000, "max":  500000},
+    '500k':  {"min":  500000, "max": 1000000},
+    '1000k': {"min": 1000000, "max": 2000000},
+    '2000k': {"min": 2000000, "max": None}  
+}
+
+PRICE_RENT_DISPLAY = [
     ('150', _(u'$150 - $300')),
     ('300', _(u'$300 - $500')),
     ('500', _(u'$500 - $750')),
     ('750', _(u'$750 - $1000')),
     ('1000', _(u'$1000 - $2000+')),
 ]
+
+PRICE_RENT_VALUES = {
+    '150':  {"min":  150*30, "max":  300*30},
+    '300':  {"min":  300*30, "max":  500*30},
+    '500':  {"min":  500*30, "max":  750*30},
+    '750':  {"min":  750*30, "max": 1000*30},
+    '1000': {"min": 1000*30, "max": None} 
+}
+
 YES_NO_VALUES = [
     (1, _(u'Yes')),
     (0, _(u'No')),
@@ -84,7 +100,7 @@ ViewVocabularyFactory = ViewVocabulary()
 @implementer(IVocabularyFactory)
 class PriceSaleVocabulary(object):
     def __call__(self, context):
-        return vocabulize(PRICE_SALE_VALUES)
+        return vocabulize(PRICE_SALE_DISPLAY)
 
 PriceSaleVocabularyFactory = PriceSaleVocabulary()
 
@@ -92,7 +108,7 @@ PriceSaleVocabularyFactory = PriceSaleVocabulary()
 @implementer(IVocabularyFactory)
 class PriceRentVocabulary(object):
     def __call__(self, context):
-        return vocabulize(PRICE_RENT_VALUES)
+        return vocabulize(PRICE_RENT_DISPLAY)
 
 PriceRentVocabularyFactory = PriceRentVocabulary()
 

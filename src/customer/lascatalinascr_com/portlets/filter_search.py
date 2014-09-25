@@ -169,7 +169,11 @@ class FilterSearchForm(form.Form):
     @property
     def action(self):
         """See interfaces.IInputForm."""
-        return '@@ajaxListingSearch'
+        action_url = self.request.getURL()
+        index = action_url.rfind("/")
+        action = action_url[:index] + '/@@ajaxListingSearch'
+
+        return action
 
     def _widgets(self, row):
         """Return a list of widgets that should be shown for a given row."""
