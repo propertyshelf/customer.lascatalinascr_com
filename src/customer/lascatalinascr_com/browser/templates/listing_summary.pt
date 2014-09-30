@@ -34,13 +34,15 @@
                     price_raw listing/price_raw/value;
                     price_rent python: '&#36;%d /day'%(price_raw/30);
                     listing_price python: price_rent if listing_category == 'rent' else price_org;
-                    preview_id string:preview_${listing/id/value};">
+                    listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';
+                    preview_id string:preview_${listing/id/value};
+                    ">
    
         <div class="js-on show listing-summary" style="display:none;">
            <div tal:attributes="id preview_id" class="js-on hide QuickPreview" style="display:none;">
               <div
                  tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}"
-                 tal:content="listing_category"></div>
+                 tal:content="listing_status"></div>
 
               <div
                  tal:attributes="class string:listing_title">
@@ -103,7 +105,7 @@
                      src="++resource++plone.mls.listing.images/no-image.png" />
             <div
                  tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}"
-                 tal:content="listing_category"></div>
+                 tal:content="listing_status"></div>
           </a>
           <figcaption>
             <small><span tal:replace="listing/title/value">[Caption]</span></small>
@@ -112,6 +114,18 @@
         <section class="js-on show listing-short-detail" style="display:none;">
           <h2 tal:content="property_title"/>    
           <div tal:content="listing_title" tal:condition="listing_title" class="listing_descr"/>
+          <div class="object_type row" tal:define="item listing/object_type | nothing" tal:condition="item" >
+                  <span class="label" tal:content="item/label"/>:
+                  <span class="value" tal:content="item/value"/>
+          </div>
+          <div class="beds_baths row" tal:define="item listing/beds_baths | nothing" tal:condition="item">
+                  <span class="label"  tal:content="item/label | nothing"/>:
+                  <span class="value"  tal:content="item/value | nothing"/>
+          </div>
+          <div class="price row" tal:define="item listing/price | nothing" tal:condition="item" >
+                  <span class="label" tal:content="item/label"/>:
+                  <span class="value" tal:content="listing_price"/>
+          </div>
         </section>
 
         <section class="js-off">
