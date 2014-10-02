@@ -36,7 +36,7 @@
       <div class="tileItem visualIEFloatFix"
            tal:repeat="listing batch">
         <h2 class="tileHeadline"><a href="" class="summary url"
-            tal:attributes="href string:${page_url}${listing/id/value}"><span
+            tal:attributes="href string:${page_url}/${listing/id/value}"><span
             tal:replace="listing/title/value">[Listing Title]</span></a></h2>
 
         <figure tal:define="image listing/lead_image | nothing">

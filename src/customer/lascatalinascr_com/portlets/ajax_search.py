@@ -12,6 +12,8 @@ from plone.mls.listing.api import search
 #local imports
 from customer.lascatalinascr_com.vocabularies import PRICE_RENT_VALUES, PRICE_SALE_VALUES
 
+from pprint import pprint as pp
+
 
 def encode_dict(in_dict):
     out_dict = {}
@@ -106,7 +108,7 @@ class ajaxSearch(BrowserView):
                     params['object_type'] = 'condominium'
 
             #just include pool param if Yes or No is selected (get all otherwise)
-            if item == 'form.widgets.pool' and (raw == 0 or raw==1):
+            if item == 'form.widgets.pool':
                 params['pool'] = raw
 
             #reset form.widgets.view_type
@@ -127,8 +129,23 @@ class ajaxSearch(BrowserView):
         #detect min/max price
         MinMax = self._PriceRange(params)
         if MinMax is not None:
+        
             params['price_min'] = MinMax.get('min',None)
+            if params['price_min'] is not None:
+                try:
+                    params['price_min'] = int(params['price_min'])
+                except Exception, e:
+                    """"""
+                    pp(e)
+
             params['price_max'] = MinMax.get('max',None)
+            if params['price_max'] is not None:
+                try:
+                    params['price_max'] = int(params['price_max'])
+                except Exception, e:
+                    """"""
+                    pp(e)
+            
         
         return params
 
@@ -194,6 +211,7 @@ class ajaxSearch(BrowserView):
             'agency_listings': self.agency_exclusive
         }
         search_params.update(params)
+        pp(search_params)
         results, batching = search(search_params, context=self.context)
         self._listings = results
         self._batching = batching

@@ -118,7 +118,7 @@ class IFilterSearchLC(form.Schema):
     price_rent = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        title=_(u'Monthly Rental Price Range'),
+        title=_(u'Nigthly Rental Price Range'),
         source='lasCatalinas.PriceRentVocabulary',
     )
 
