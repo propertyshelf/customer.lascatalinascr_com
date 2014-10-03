@@ -16,6 +16,8 @@ from zope import formlib, schema
 from zope.interface import alsoProvides, implementer
 from zope.schema.fieldproperty import FieldProperty
 
+from pprint import pprint as pp
+
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
 try:
     from plone.z3cform.interfaces import IWrappedForm
@@ -222,17 +224,44 @@ class IFilterSearchPortlet(IPortletDataProvider):
         title=_(u'Portlet Title (Search)'),
     )
 
+    limit = schema.TextLine(
+        description=_(
+            u'How many listings per page?'
+        ),
+        required=False,
+        title=_(u'Limit the results'),
+        default=u'9'
+    )
+
+    agency_listings = schema.Bool(
+        description=_(
+            u'If activated, only listings of the configured agency are shown.',
+        ),
+        required=False,
+        title=_(u'Agency Listings'),
+    )
+
 @implementer(IFilterSearchPortlet)
 class Assignment(base.Assignment):
     """Filter Search Portlet Assignment."""
 
     heading = FieldProperty(IFilterSearchPortlet['heading'])
+    try:
+        limit = int(FieldProperty(IFilterSearchPortlet['limit']))
+    except Exception,e:
+        limit = None
+    try:
+        agency_listings = bool(FieldProperty(IFilterSearchPortlet['agency_listings']))
+    except Exception,e:
+        agency_listings = True
     
-    title = _(u'Ajax Filter Listings')
+    title = _(u'Ajax Filter')
     mode = 'SEARCH'
 
-    def __init__(self, heading=None, heading_filter=None, target_search=None):
+    def __init__(self, heading=None, limit=None, agency_listings=None):
         self.heading = heading
+        self.limit = limit
+        self.agency_listings = agency_listings
 
 
 class Renderer(base.Renderer):
@@ -270,6 +299,7 @@ class Renderer(base.Renderer):
         if self.data.heading is not None:
             return self.data.heading
         return self.data.title
+
         
     @property
     def mode(self):

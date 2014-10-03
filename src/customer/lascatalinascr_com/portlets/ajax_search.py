@@ -35,6 +35,8 @@ class ajaxSearch(BrowserView):
     _batching = None
     _isRental = None
     _isSale   = None
+    _limit    = None
+    _agency_listings = None
 
 
     def __init__(self, context, request):
@@ -43,7 +45,6 @@ class ajaxSearch(BrowserView):
         self.request = request
         self.update()
         
-
     def __call__(self):
         return self.render()
 
@@ -59,11 +60,16 @@ class ajaxSearch(BrowserView):
 
     @property
     def limit(self):
-        return 15
+        """get a limit from the request or set 9"""
+        if self._limit is not None:
+            return self._limit
+        return 9
 
     @property
     def agency_exclusive(self):
         """show only agenty listings?"""
+        if self._agency_listings is not None:
+            return self._agency_listings
         return True
 
     def render(self):
@@ -77,7 +83,18 @@ class ajaxSearch(BrowserView):
         for item in data:
             raw = data[item]
 
-            # translate beds for mls search
+            # add & set limit param
+            if item =='limit':
+                try:
+                  self._limit = int(raw)
+                except Exception, e:
+                    pp(e)
+            if item =='agency_listings':
+                try:
+                  self._agency_listings = bool(raw)
+                except Exception, e:
+                    pp(e)
+            
             if item == 'form.widgets.beds':
                 params['beds_min'] = raw
                 params['beds_max'] = raw
@@ -211,7 +228,6 @@ class ajaxSearch(BrowserView):
             'agency_listings': self.agency_exclusive
         }
         search_params.update(params)
-        pp(search_params)
         results, batching = search(search_params, context=self.context)
         self._listings = results
         self._batching = batching

@@ -67,12 +67,7 @@
               <dt><span tal:replace="item/label">[Label]</span>:</dt>
               <dd><span tal:replace="item/value">[Value]</span></dd>
             </tal:item>
-
-            <tal:item tal:define="item listing/image_count | nothing" tal:condition="item">
-              <dt><span tal:replace="item/label">[Label]</span>:</dt>
-              <dd tal:attributes="class item/value"><span tal:replace="item/value">[Value]</span></dd>
-            </tal:item>
-
+            
             <tal:item tal:define="item listing/object_type | nothing" tal:condition="item">
               <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
               <dd><span tal:replace="item/value">[Value]</span></dd>
@@ -83,25 +78,12 @@
               <dd><span tal:replace="item/value">[Value]</span></dd>
             </tal:item>
 
-            <tal:item tal:define="item listing/location | nothing" tal:condition="item">
-              <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
-              <dd class="full"><span tal:replace="item/value">[Value]</span></dd>
-            </tal:item>
-
-            <tal:item tal:define="item listing/location_type | nothing" tal:condition="item">
-              <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
-              <dd class="full"><span tal:replace="item/value">[Value]</span></dd>
-            </tal:item>
-
             <tal:item tal:define="item listing/view_type | nothing" tal:condition="item">
               <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
               <dd class="full"><span tal:replace="item/value">[Value]</span></dd>
             </tal:item>
 
-            <tal:item tal:define="item listing/lot_size | nothing" tal:condition="item">
-              <dt class="row"><span tal:replace="item/label">Label</span>:</dt>
-              <dd class="full"><span tal:replace="structure item/value">Value</span></dd>
-            </tal:item>
+            
           </dl>
         </section>
 
