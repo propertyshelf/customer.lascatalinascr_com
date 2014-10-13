@@ -62,5 +62,12 @@ $(document).ready(function() {
 
             e.preventDefault(); //STOP default action
         });
+
+        //add change event to form fields
+        // no submit button needed
+        $(".aJaXFilter input").change(function(){
+            $(".aJaXFilter form").submit();
+        });
+
     }
 });
