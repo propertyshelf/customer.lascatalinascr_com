@@ -140,6 +140,7 @@ class FilterSearchForm(form.Form):
     template = ViewPageTemplateFile('templates/searchform.pt')
     ignoreContext = True
     method = 'get'
+    enable_unload_protection = False
 
     fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['beds'].widgetFactory = radio.RadioFieldWidget
