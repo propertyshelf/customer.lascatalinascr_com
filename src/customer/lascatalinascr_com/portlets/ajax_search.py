@@ -241,10 +241,17 @@ class ajaxSearch(BrowserView):
     @memoize
     def view_url(self):
         """Generate view url."""
-        if not self.context_state.is_view_template():
-            return self.context_state.current_base_url()
-        else:
-            return absoluteURL(self.context, self.request) + '/'
+        if  self.context_state.is_view_template():
+            myUrl = absoluteURL(self.context, self.request) + '/'
+        else:          
+            myUrl = self.context_state.current_base_url()
+
+        #remove @@ params from the url
+        mySplit = myUrl.split('@@')
+        myUrl = mySplit[0]
+
+        return myUrl
+
 
     @property
     def batching(self):
