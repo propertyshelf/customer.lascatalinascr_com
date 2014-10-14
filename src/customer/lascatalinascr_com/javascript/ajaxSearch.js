@@ -1,23 +1,30 @@
 function refresh_ListingContent(data){
-  // get data from the ajax request and update the Plone content
-  foo = $(data).filter('#AjaxFilter');
-  if( $(foo).length<1){
-    //Server Error?
-    foo = '<h2>Ups, something went wrong ... </h2><h3>We are sorry for the troubles. Please try find your property later again.</h3>';
-  }
+    // get data from the ajax request and update the Plone content
+    foo = $(data).filter('#AjaxFilter');
+    if( $(foo).length<1){
+        //Server Error?
+        foo = '<h2>Ups, something went wrong ... </h2><h3>We are sorry for the troubles. Please try find your property later again.</h3>';
+    }
 
-  $('section.listing-summary').replaceWith(foo);      
-  $('section.listing-summary .js-off').hide();
-  $('section.listing-summary .js-on.show').show();
-  $('section.listing-summary .js-on.hide').hide();
+    $('section.listing-summary').replaceWith(foo);      
+    $('section.listing-summary .js-off').hide();
+    $('section.listing-summary .js-on.show').show();
+    $('section.listing-summary .js-on.hide').hide();
 
-  //refresh prepOverlay
-  try{
-   plonePrettyPhoto.enable(); 
-  }
-  catch(error){
-    console.log(error);
-  }
+    //refresh prepOverlay
+    try{
+        plonePrettyPhoto.enable(); 
+    }
+    catch(error){
+        console.log(error);
+    }
+    //Pagination Links
+    $("#AjaxFilter .listingBar a" ).click(function(event){
+        event.preventDefault();
+        myUrl = $(this).attr('href');
+        ajaxLink(myUrl);
+        return false;
+    });
    
 
 }
@@ -33,8 +40,7 @@ function ajaxLink(target){
         crossDomain: true,
         success:function(data, textStatus, jqXHR){
             //data: return data from server
-            console.log('Request rockin ...');
-            refresh_LinkContent(data);
+            refresh_ListingContent(data);
         },
         error: function(jqXHR, textStatus, errorThrown){
             //if fails   
