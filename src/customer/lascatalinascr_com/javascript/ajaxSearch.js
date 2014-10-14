@@ -5,7 +5,21 @@ function refresh_ListingContent(data){
     //Server Error?
     foo = '<h2>Ups, something went wrong ... </h2><h3>We are sorry for the troubles. Please try find your property later again.</h3>';
   }
-  $('section.listing-summary').replaceWith(foo);
+
+  $('section.listing-summary').replaceWith(foo);      
+  $('section.listing-summary .js-off').hide();
+  $('section.listing-summary .js-on.show').show();
+  $('section.listing-summary .js-on.hide').hide();
+
+  //refresh prepOverlay
+  try{
+   plonePrettyPhoto.enable(); 
+  }
+  catch(error){
+    console.log(error);
+  }
+   
+
 }
 function refresh_LinkContent(data){
   console.log('LINKCONTENT');
