@@ -22,25 +22,56 @@ function refresh_ListingContent(data){
     $("#AjaxFilter .listingBar a" ).click(function(event){
         event.preventDefault();
         myUrl = $(this).attr('href');
-        ajaxLink(myUrl);
+        ajaxLink(myUrl, true);
         return false;
     });
    
 
 }
-function refresh_LinkContent(data){
-  console.log('LINKCONTENT');
-  console.log(data);
+function refresh_Content(data){
+    foo = $(data).find('section.listing-summary');
+
+    $('section.listing-summary').replaceWith(foo);      
+    $('section.listing-summary .js-off').hide();
+    $('section.listing-summary .js-on.show').show();
+    $('section.listing-summary .js-on.hide').hide();
+
+    //refresh prepOverlay
+    try{
+        plonePrettyPhoto.enable(); 
+    }
+    catch(error){
+        console.log(error);
+    }
+ 
+
+    //standard pagination links
+    //not set by ajaxFilter
+    if($('#AjaxFilter').length<1){
+        $(".listing-summary' .listingBar a" ).click(function(event){
+            event.preventDefault();
+            myUrl = $(this).attr('href');
+            ajaxLink(myUrl, false);
+            return false;
+        });
+    }
 }
 
-function ajaxLink(target){
+function ajaxLink(target, isListing){
+    isListing = isListing || false;
     //rewrite the batch to work with ajax
     $.ajax({
         url : target,
         crossDomain: true,
         success:function(data, textStatus, jqXHR){
             //data: return data from server
-            refresh_ListingContent(data);
+            if(isListing){
+                refresh_ListingContent(data);
+            }
+            else{
+                refresh_Content(data);
+            }
+            
         },
         error: function(jqXHR, textStatus, errorThrown){
             //if fails   
@@ -88,6 +119,18 @@ $(document).ready(function() {
         $(".aJaXFilter input").change(function(){
             $(".aJaXFilter form").submit();
         });
+
+        //standard pagination links
+        //not set by ajaxFilter
+        if($('#AjaxFilter').length<1){
+            $(".listing-summary' .listingBar a" ).click(function(event){
+                event.preventDefault();
+                myUrl = $(this).attr('href');
+                ajaxLink(myUrl, false);
+                return false;
+            });
+        }
+        
 
     }
 });
