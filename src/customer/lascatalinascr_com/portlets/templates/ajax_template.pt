@@ -140,7 +140,12 @@
         <section class="js-off">
           <h2 tal:content="property_title"/>
           <h3 tal:content="listing_title" tal:condition="listing_title" class="listing_descr" />
+
           <dl>
+            <tal:item tal:define="item listing/location | nothing" tal:condition="item">
+              <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
+              <dd class="full"><span tal:replace="item/value">[Value]</span></dd>
+            </tal:item>
             <tal:item tal:define="item listing/price | nothing" tal:condition="item">
               <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
               <dd><span tal:replace="listing_price">[Value]</span></dd>
@@ -155,26 +160,18 @@
               <dt><span tal:replace="item/label">[Label]</span>:</dt>
               <dd><span tal:replace="item/value">[Value]</span></dd>
             </tal:item>
-
-            <tal:item tal:define="item listing/image_count | nothing" tal:condition="item">
+            <tal:item tal:define="item listing/beds_baths | nothing" tal:condition="item">
               <dt><span tal:replace="item/label">[Label]</span>:</dt>
-              <dd tal:attributes="class item/value"><span tal:replace="item/value">[Value]</span></dd>
+              <dd><span tal:replace="item/value">[Value]</span></dd>
             </tal:item>
-
             <tal:item tal:define="item listing/object_type | nothing" tal:condition="item">
               <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
               <dd><span tal:replace="item/value">[Value]</span></dd>
             </tal:item>
 
-            <tal:item tal:define="item listing/beds_baths | nothing" tal:condition="item">
-              <dt><span tal:replace="item/label">[Label]</span>:</dt>
-              <dd><span tal:replace="item/value">[Value]</span></dd>
-            </tal:item>
+            
 
-            <tal:item tal:define="item listing/location | nothing" tal:condition="item">
-              <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
-              <dd class="full"><span tal:replace="item/value">[Value]</span></dd>
-            </tal:item>
+            
 
             <tal:item tal:define="item listing/location_type | nothing" tal:condition="item">
               <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
@@ -199,16 +196,7 @@
       </div>
 
       <div metal:use-macro="context/batch_macros/macros/navigation" />
-
     </tal:listings>
-    <tal:scripts tal:condition="listings">
-     <script type="text/javascript">
-      $(document).ready(function() {
-        $('.js-off').hide();
-        $('.js-on.show').show();
-        $('.js-on.hide').hide();
-    })
-    </script>
-  </tal:scripts>
+     
   </section>
 </html>
