@@ -21,13 +21,10 @@
     </tal:no-results>
 
     <tal:listings tal:condition="listings">
-      <h2 i18n:domain="plone"
-          tal:condition="results"><span
-          i18n:translate="batch_x_items_matching_your_criteria"><span
-          i18n:name="number"
-          tal:omit-tag=""
-          tal:content="results">234</span> items matching your search terms</span></h2>
-
+      <h2 i18n:domain="plone" tal:condition="results">
+        <span><span tal:omit-tag="" tal:content="results">234</span> 
+          properties found!</span>
+      </h2>
       <div metal:use-macro="context/batch_macros/macros/navigation" />
 
       <div class="tileItem visualIEFloatFix" style="margin-bottom: 1em;"
