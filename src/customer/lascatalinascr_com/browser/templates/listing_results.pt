@@ -31,7 +31,7 @@
           i18n:translate="batch_x_items_matching_your_criteria"><span
           i18n:name="number"
           tal:omit-tag=""
-          tal:content="results">234</span> properties found!</span></h2>
+          tal:content="results">234</span> Properties matched your search.</span></h2>
 
       <div metal:use-macro="context/batch_macros/macros/navigation" />
 
@@ -100,7 +100,7 @@
               </div>
               <div class="listing_controls">
                <div class="more_details">
-                 <a tal:attributes="href string:${page_url}${listing/id/value};
+                 <a class="listingLink" tal:attributes="href string:${page_url}${listing/id/value};
                                      title string:Click for more Details;">More Details</a></div>
               </div>
 
@@ -110,7 +110,7 @@
           <div class="quick_preview_button">
             <a tal:attributes="href string:#${preview_id}" rel="prettyPhoto[quickpreview]" >Quick Preview</a>
          </div>
-          <a href="" tal:attributes="href string:${page_url}${listing/id/value};
+          <a class="listingLink" tal:attributes="href string:${page_url}${listing/id/value};
                                      title listing/title/value">
                     <img alt=""
                      tal:condition="image"
