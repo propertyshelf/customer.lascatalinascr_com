@@ -1,4 +1,4 @@
-function refresh_ListingContent(data){
+function refresh_ListingSummaryContent(data){
     // get data from the ajax request and update the Plone content
     foo = $(data).filter('#AjaxFilter');
     if( $(foo).length<1){
@@ -6,7 +6,7 @@ function refresh_ListingContent(data){
         foo = '<h2>Ups, something went wrong ... </h2><h3>We are sorry for the troubles. Please try find your property later again.</h3>';
     }
 
-    $('section.listing-summary').replaceWith(foo);      
+    $('section.listing-summary, .template-listing-detail .listing.detail').replaceWith(foo);      
     $('section.listing-summary .js-off').hide();
     $('section.listing-summary .js-on.show').show();
     $('section.listing-summary .js-on.hide').hide();
@@ -28,14 +28,23 @@ function refresh_ListingContent(data){
    
 
 }
-function refresh_Content(data){
-    foo = $(data).find('section.listing-summary');
+function refresh_Content(data, isListingSummary){
+    isListingSummary = isListingSummary || false;
 
-    $('section.listing-summary').replaceWith(foo);      
-    $('section.listing-summary .js-off').hide();
-    $('section.listing-summary .js-on.show').show();
-    $('section.listing-summary .js-on.hide').hide();
+    if(isListingSummary){
+        foo = $(data).find('section.listing-summary');
 
+        $('section.listing-summary').replaceWith(foo);      
+        $('section.listing-summary .js-off').hide();
+        $('section.listing-summary .js-on.show').show();
+        $('section.listing-summary .js-on.hide').hide();
+    }
+    else{
+        foo = $(data).find('#content');
+        $('#content-core').replaceWith(foo); 
+
+    }
+    
     //refresh prepOverlay
     try{
         plonePrettyPhoto.enable(); 
@@ -57,19 +66,20 @@ function refresh_Content(data){
     }
 }
 
-function ajaxLink(target, isListing){
-    isListing = isListing || false;
+function ajaxLink(target, loadListingSummary, isListingSummary){
+    loadListingSummary = loadListingSummary || false;
+    isListingSummary = isListingSummary || false;
     //rewrite the batch to work with ajax
     $.ajax({
         url : target,
         crossDomain: true,
         success:function(data, textStatus, jqXHR){
             //data: return data from server
-            if(isListing){
-                refresh_ListingContent(data);
+            if(loadListingSummary){
+                refresh_ListingSummaryContent(data);
             }
             else{
-                refresh_Content(data);
+                    refresh_Content(data, isListingSummary)
             }
             
         },
@@ -101,7 +111,7 @@ $(document).ready(function() {
                 data : postData,
                 success:function(data, textStatus, jqXHR){
                     //data: return data from server
-                    refresh_ListingContent(data);
+                    refresh_ListingSummaryContent(data);
 
                 },
                 error: function(jqXHR, textStatus, errorThrown){
@@ -120,15 +130,26 @@ $(document).ready(function() {
             $(".aJaXFilter form").submit();
         });
 
-        //standard pagination links
+        //not filtered yet
         //not set by ajaxFilter
         if($('#AjaxFilter').length<1){
+            /*
+            //load pagination via ajax
             $(".listing-summary' .listingBar a" ).click(function(event){
+                console.log('click?');
+                event.preventDefault();
+                myUrl = $(this).attr('href');
+                ajaxLink(myUrl, false, true);
+                return false;
+            });
+            //load listing via ajax
+            $(".listing-summary figure > a" ).click(function(event){
                 event.preventDefault();
                 myUrl = $(this).attr('href');
                 ajaxLink(myUrl, false);
                 return false;
             });
+            */
         }
         
 
