@@ -118,6 +118,7 @@ class ajaxSearch(BrowserView):
                 #land listings
                 if 'lot' in raw:
                     lt += 'll'
+                    self._isSale = True
 
                 params['listing_type'] = lt
                 # condo? no problem.
@@ -153,16 +154,18 @@ class ajaxSearch(BrowserView):
                     params['price_min'] = int(params['price_min'])
                 except Exception, e:
                     """"""
-                    pp(e)
+                    params['price_min'] = None
 
             params['price_max'] = MinMax.get('max',None)
-            if params['price_max'] is not None:
+            if params['price_max'] is not None and params['price_max']!= '':
                 try:
                     params['price_max'] = int(params['price_max'])
+
                 except Exception, e:
                     """"""
-                    pp(e)
-            
+                    params['price_max'] = None
+            else:
+                params['price_max'] = None
         
         return params
 
@@ -176,7 +179,12 @@ class ajaxSearch(BrowserView):
         # use the general Price Min/Max
         if (self._isRental and self._isSale) or not(self._isRental or self._isSale):
             priceRange['min']=params.get('form.widgets.price_min', None)
+            if len(priceRange['min'])<1:
+                priceRange['min']= None
             priceRange['max']=params.get('form.widgets.price_max', None)
+            if len(priceRange['max'])<1:
+                priceRange['max']= None
+            
             return priceRange
         # only rentals: use rental Price ranges
         elif self._isRental:
