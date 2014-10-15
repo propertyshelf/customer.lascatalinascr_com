@@ -94,13 +94,16 @@ function ajaxLink(target, loadListingSummary, isListingSummary){
 }
 
 function linkMyParams(link_obj){
-    /* preserve the current filter settings in a link 
+    /* preserve the current filter status is a link
+       serialize the form
+       update the href(s) of the given link object(s)
     */
     var MyParams = "LCMARKER=1&" + $(".aJaXFilter form").serialize();
     
     $(link_obj).each(function( index ) {
-        MyUrl = $(this).attr('href');     
-        if (MyUrl.indexOf("?") >= 0){
+        MyUrl = $(this).attr('href');  
+        
+        if (MyUrl.indexOf("?") > 0){
             connector ="&";
         }
         else{

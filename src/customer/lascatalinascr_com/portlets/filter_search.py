@@ -16,8 +16,6 @@ from zope import formlib, schema
 from zope.interface import alsoProvides, implementer
 from zope.schema.fieldproperty import FieldProperty
 
-from pprint import pprint as pp
-
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
 try:
     from plone.z3cform.interfaces import IWrappedForm
@@ -98,12 +96,12 @@ class IFilterSearchLC(form.Schema):
         ),
     )
 
-    price_min = schema.Int(
+    price_min = schema.TextLine(
         required=False,
         title=_(u'Price'),
     )
 
-    price_max = schema.Int(
+    price_max = schema.TextLine(
         required=False,
         title=_(u'Price (Max)'),
     )

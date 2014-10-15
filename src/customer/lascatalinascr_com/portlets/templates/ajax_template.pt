@@ -15,6 +15,7 @@
                        b_size view/limit;
                        b_orphan python: 1;
                        b_start request/b_start | python: 0;">
+
     <tal:no-results tal:condition="not:listings">
       <h2>No matches found ....</h2>
       <h3>Please adjust the filter criteria to find more results</h3>
