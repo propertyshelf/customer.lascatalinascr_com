@@ -10,7 +10,9 @@ function refresh_ListingSummaryContent(data){
     $('section.listing-summary .js-off').hide();
     $('section.listing-summary .js-on.show').show();
     $('section.listing-summary .js-on.hide').hide();
-
+    //update listing links with search params
+    linkMyParams($('.listingLink'));
+    linkMyParams($('#portal-breadcrumbs a').last());
     //refresh prepOverlay
     try{
         plonePrettyPhoto.enable(); 
@@ -79,49 +81,87 @@ function ajaxLink(target, loadListingSummary, isListingSummary){
                 refresh_ListingSummaryContent(data);
             }
             else{
-                    refresh_Content(data, isListingSummary)
+                    refresh_Content(data, isListingSummary);
             }
             
         },
         error: function(jqXHR, textStatus, errorThrown){
             //if fails   
-            console.log('Error:');
             console.log(errorThrown);   
         }
     });
 
 }
 
+function linkMyParams(link_obj){
+    /* preserve the current filter settings in a link 
+    */
+    var MyParams = "LCMARKER=1&" + $(".aJaXFilter form").serialize();
+    
+    $(link_obj).each(function( index ) {
+        MyUrl = $(this).attr('href');     
+        if (MyUrl.indexOf("?") >= 0){
+            connector ="&";
+        }
+        else{
+            connector ="?";
+        } 
+     
+        if(MyUrl.indexOf("LCMARKER=1") < 1){
+            //our params are not set yet
+            newUrl = MyUrl + connector + MyParams;
+        }
+        else{
+            //we set this params before and have to replace them
+            splitUrl= MyUrl.split('LCMARKER=1&');
+            newUrl = splitUrl[0] + MyParams;
+        }
+        //finally: update Link Url
+        $(this).attr('href', newUrl);
+
+        
+    });
+}
+
 $(document).ready(function() {
     //if the AjaxFilter Portlet is available
     // execute the AjaxSearch
     if($('.aJaXFilter').length>0){
-        //unset default Plone classes
-        $('.aJaXFilter form').removeClass();
 
         $(".aJaXFilter form").submit(function(e){
-
-            var postData = $(this).serializeArray();
-            var formURL = $(this).attr("action");
-
-            $.ajax({
-                url : formURL,
-                type: "POST",
-                crossDomain: false,
-                data : postData,
-                success:function(data, textStatus, jqXHR){
-                    //data: return data from server
-                    refresh_ListingSummaryContent(data);
-
-                },
-                error: function(jqXHR, textStatus, errorThrown){
-                    //if fails   
-                    console.log('Error:');
-                    console.log(errorThrown);   
-                }
-            });
-
             e.preventDefault(); //STOP default action
+
+            var formURL = $(this).attr("action");
+            
+            if($('.template-listing-detail').length<1){
+                //if we are not on listing details
+                // send ajax request
+                var postData = $(this).serializeArray();
+                
+                $.ajax({
+                    url : formURL,
+                    type: "POST",
+                    crossDomain: false,
+                    data : postData,
+                    success:function(data, textStatus, jqXHR){
+                        //data: return data from server
+                        refresh_ListingSummaryContent(data);
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        //if fails   
+                        console.log('Error:');
+                        console.log(errorThrown);   
+                    }
+                });
+
+            }
+            else{
+                splitUrl = formURL.split('@@');
+                newUrl   = splitUrl[0] + "?LCMARKER=1&" + $(this).serialize();
+                window.location.href = newUrl;
+            }
+            
         });
 
         //add change event to form fields
@@ -130,28 +170,18 @@ $(document).ready(function() {
             $(".aJaXFilter form").submit();
         });
 
-        //not filtered yet
-        //not set by ajaxFilter
-        if($('#AjaxFilter').length<1){
-            /*
-            //load pagination via ajax
-            $(".listing-summary' .listingBar a" ).click(function(event){
-                console.log('click?');
-                event.preventDefault();
-                myUrl = $(this).attr('href');
-                ajaxLink(myUrl, false, true);
-                return false;
-            });
-            //load listing via ajax
-            $(".listing-summary figure > a" ).click(function(event){
-                event.preventDefault();
-                myUrl = $(this).attr('href');
-                ajaxLink(myUrl, false);
-                return false;
-            });
-            */
+        //unset default Plone classes
+        $('.aJaXFilter form').removeClass();
+
+        //submit searchform to show results of preserved search?
+
+        if($('section.listing-summary').length>0 && window.location.href.indexOf("LCMARKER=1") > 0){
+          $(".aJaXFilter form").submit();
         }
         
-
+        //"remember" form status in links
+        linkMyParams($('.listingLink'));
+        linkMyParams($('#portal-breadcrumbs a').last());
+        
     }
 });
