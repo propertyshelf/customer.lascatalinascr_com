@@ -126,6 +126,149 @@ function linkMyParams(link_obj){
     });
 }
 
+function setPriceBoxes(commander){
+    /* Check the form status and set the correct behaviour */
+    isSale   = false;
+    isRental = false;
+    isMixed  = false;
+
+    settings = $(commander).find('input:checked');
+    if (settings.length>0){
+        isEmpty = false;
+    }
+    else{
+        isEmpty = true;
+    }
+        
+    if (isEmpty === false){
+        //only when we have selected options
+        settings.each(function(index) {
+            //classify search request with the set options
+            switch ($(this).val())
+            {
+                case 'rental':  isRental= true;
+                                break;
+                case 'sale':    isSale= true;
+                                break;
+                case 'lot':     isSale= true;
+                                break;
+                default:        break;
+            }
+
+        });
+        if(isSale && isRental){
+            isMixed     = true;
+            isSale      = false;
+            isRental    = false;
+        }
+        else{
+            isMixed     = false;
+        }
+
+        if(isMixed){
+            // close sales & rent price ranges
+            collapseMe('#formfield-form-widgets-price_sale');
+            collapseMe('#formfield-form-widgets-price_rent');
+            //open free text price limit
+            openMe('#formfield-form-widgets-price_min');
+            openMe('#formfield-form-widgets-price_max');
+
+        }
+        else{
+            if(isSale){
+                // close rent price ranges & mixed limit
+                collapseMe('#formfield-form-widgets-price_rent');
+                collapseMe('#formfield-form-widgets-price_min');
+                collapseMe('#formfield-form-widgets-price_max');
+                //open sales price range
+                openMe('#formfield-form-widgets-price_sale');      
+            }
+            if(isRental){
+                // close sales price ranges & mixed limit
+                collapseMe('#formfield-form-widgets-price_sale');
+                collapseMe('#formfield-form-widgets-price_min');
+                collapseMe('#formfield-form-widgets-price_max');
+                //open rental price range
+                openMe('#formfield-form-widgets-price_rent');
+            }
+        }
+
+    }
+    if(isEmpty){
+        // close all
+        collapseMe('#formfield-form-widgets-price_rent');
+        collapseMe('#formfield-form-widgets-price_sale');
+        collapseMe('#formfield-form-widgets-price_min');
+        collapseMe('#formfield-form-widgets-price_max');             
+                
+    }
+
+}
+function collapseMe(field_id) {
+        var indicator   = $(field_id).find('.collapser:first');
+        var target      = $(field_id).find('.collapse:first');
+            
+        target.slideUp('normal');
+        indicator.removeClass('expanded');
+        indicator.addClass('collapsed');
+        
+}
+function openMe(field_id) {
+        var indicator   = $(field_id).find('.collapser:first');
+        var target      = $(field_id).find('.collapse:first');
+            
+        target.slideDown('normal');
+        indicator.addClass('expanded');
+        indicator.removeClass('collapsed');
+        
+}
+function stateChecker(field_id, field_type){
+    field_type  = field_type || "checkbox";
+    openField = false;
+    closeField = false;
+   
+    var commander   = $(field_id);
+    var indicator   = $(field_id).find('.collapser:first');
+    var target      = $(field_id).find('.collapse:first');
+
+    switch(field_type){
+        case 'checkbox':
+            settings = $(commander).find('input:checked');
+            if (settings.length>0){
+                //we have a checked checkbox
+                openField  = true;
+                closeField = false;
+            }else{
+                //nothing set
+                openField  = false;
+                closeField = true;
+            }
+            break;
+        case 'radio':
+            settings = $(commander).find('input:checked');
+            if (settings.length>0 && settings.val()!=='--NOVALUE--'){
+                //we have a checked radio button
+                //lets check its value
+                openField  = true;
+                closeField = false;
+            }else{
+                //nothing set
+                openField  = false;
+                closeField = true;
+            }
+            break;
+        case 'text': break;
+        default: break;
+    }
+    if(openField){
+        openMe(field_id);
+    }
+    if(closeField){
+        collapseMe(field_id);
+    }
+
+}
+
 $(document).ready(function() {
     //if the AjaxFilter Portlet is available
     // execute the AjaxSearch
@@ -167,21 +310,32 @@ $(document).ready(function() {
             
         });
 
+        //submit searchform to show results of preserved search?
+        if($('section.listing-summary').length>0 && window.location.href.indexOf("LCMARKER=1") > 0){
+          $(".aJaXFilter form").submit();
+        }
+
         //add change event to form fields
         // no submit button needed
         $(".aJaXFilter input").change(function(){
             $(".aJaXFilter form").submit();
         });
+        // add UI Price improvements
+        $(".aJaXFilter #formfield-form-widgets-listing_type").change(function(){
+            setPriceBoxes(this);
+        });
 
         //unset default Plone classes
         $('.aJaXFilter form').removeClass();
 
-        //submit searchform to show results of preserved search?
+        //standard setup: field expanded if value is set inside
+        stateChecker('#formfield-form-widgets-listing_type');
+        stateChecker('#formfield-form-widgets-beds', 'radio');
+        stateChecker('#formfield-form-widgets-view_type');
+        stateChecker('#formfield-form-widgets-pool', 'radio');
+        //set price display
+        setPriceBoxes('#formfield-form-widgets-listing_type');
 
-        if($('section.listing-summary').length>0 && window.location.href.indexOf("LCMARKER=1") > 0){
-          $(".aJaXFilter form").submit();
-        }
-        
         //"remember" form status in links
         linkMyParams($('.listingLink'));
         linkMyParams($('#portal-breadcrumbs a').last());
