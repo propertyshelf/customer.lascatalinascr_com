@@ -98,12 +98,18 @@ class IFilterSearchLC(form.Schema):
 
     price_min = schema.TextLine(
         required=False,
-        title=_(u'Price'),
+        title=_(u'Starting Price'),
+        description=_(
+            u'Enter an absolute value in USD for a Sale or a monthly Rental.'
+        ),
     )
 
     price_max = schema.TextLine(
         required=False,
-        title=_(u'Price (Max)'),
+        title=_(u'Price Limit'),
+        description=_(
+            u'Enter an absolute value in USD for a Sale or a monthly Rental.'
+        ),
     )
 
     form.widget(price_sale=radio.RadioFieldWidget)
@@ -112,6 +118,9 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'Sales Price Range'),
         source='lasCatalinas.PriceSaleVocabulary',
+        description=_(
+            u'Choose a price range for your Properties.'
+        ),
     )
 
     form.widget(price_rent=radio.RadioFieldWidget)
@@ -120,6 +129,9 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'Nigthly Rental Price Range'),
         source='lasCatalinas.PriceRentVocabulary',
+        description=_(
+            u'Choose a price range for your Rental.'
+        ),
     )
 
     form.widget(pool=radio.RadioFieldWidget)
@@ -128,6 +140,9 @@ class IFilterSearchLC(form.Schema):
         required=False,
         source='lasCatalinas.YesNoVocabulary',
         title=_(u'Private Pool'),
+        description=_(
+            u'Care about a pool?'
+        ),
     )
 
 
