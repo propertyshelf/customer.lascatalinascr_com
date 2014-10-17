@@ -79,7 +79,7 @@ class ajaxSearch(BrowserView):
     def prepare_search_params(self, data):
         """Prepare search params."""
         params = {}
-
+     
         for item in data:
             raw = data[item]
 
@@ -96,8 +96,10 @@ class ajaxSearch(BrowserView):
                     pp(e)
             
             if item == 'form.widgets.beds':
-                params['beds_min'] = raw
-                params['beds_max'] = raw
+                if raw !='--NOVALUE--':
+                    params['beds_min'] = raw
+                    params['beds_max'] = raw
+
             # map the custom listing types to the mls search
             if item == 'form.widgets.listing_type' and isinstance(raw, (list, tuple, )):
                 lt =''
@@ -127,7 +129,8 @@ class ajaxSearch(BrowserView):
 
             #just include pool param if Yes or No is selected (get all otherwise)
             if item == 'form.widgets.pool':
-                params['pool'] = raw
+                if raw != '--NOVALUE--':
+                  params['pool'] = raw
 
             #reset form.widgets.view_type
             if item == "form.widgets.view_type" and isinstance(raw, (list, tuple, )):
@@ -138,7 +141,7 @@ class ajaxSearch(BrowserView):
                     params['location_type'] = 'oceanfront'
 
             # Remove all None-Type values.
-            if data[item] is not None:
+            if data[item] is not None or data[item]=='--NOVALUE--':
                 value = data[item]
                 if isinstance(value, unicode):
                     value = value.encode('utf-8')
@@ -236,6 +239,7 @@ class ajaxSearch(BrowserView):
             'agency_listings': self.agency_exclusive
         }
         search_params.update(params)
+    
         results, batching = search(search_params, context=self.context)
         self._listings = results
         self._batching = batching
