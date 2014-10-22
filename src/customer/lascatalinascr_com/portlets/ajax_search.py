@@ -105,27 +105,29 @@ class ajaxSearch(BrowserView):
                 lt =''
 
                 if 'rental' in raw:
-                    lt += 'rl,'
+                    lt += 'rl, cl,'
                     self._isRental = True
-                    # when Home is selected don't show commercial rent listings
-                    if not 'home' in raw:
-                        lt += 'cl,'
 
                 if 'sale' in raw:
-                    lt += 'rs,' 
+                    lt += 'rs, cs,' 
                     self._isSale = True
-                    # when Home is selected don't show commercial sale listings
-                    if not 'home' in raw:
-                        lt += 'cs,'
+
                 #land listings
                 if 'lot' in raw:
                     lt += 'll'
                     self._isSale = True
 
                 params['listing_type'] = lt
+                #special object types?
+                ot =''
                 # condo? no problem.
                 if 'condo' in raw:
-                    params['object_type'] = 'condominium'
+                    ot += 'condominium,'
+                # if "home" is set, objecttype is house
+                if 'home' in raw:
+                    ot += 'house'
+
+                params['object_type']= ot
 
             #just include pool param if Yes or No is selected (get all otherwise)
             if item == 'form.widgets.pool':
