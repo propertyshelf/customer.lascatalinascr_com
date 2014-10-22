@@ -6,7 +6,7 @@ function refresh_ListingSummaryContent(data){
         foo = '<h2>Ups, something went wrong ... </h2><h3>We are sorry for the troubles. Please try find your property later again.</h3>';
     }
 
-    $('section.listing-summary, .template-listing-detail .listing.detail').replaceWith(foo);      
+    $('section.listing-summary, .template-listing-detail .listing.detail').replaceWith(foo);
     $('section.listing-summary .js-off').hide();
     $('section.listing-summary .js-on.show').show();
     $('section.listing-summary .js-on.hide').hide();
@@ -15,7 +15,7 @@ function refresh_ListingSummaryContent(data){
     linkMyParams($('#portal-breadcrumbs a').last());
     //refresh prepOverlay
     try{
-        plonePrettyPhoto.enable(); 
+        plonePrettyPhoto.enable();
     }
     catch(error){
         console.log(error);
@@ -27,29 +27,28 @@ function refresh_ListingSummaryContent(data){
         ajaxLink(myUrl, true);
         return false;
     });
-   
-
 }
+
 function refresh_Content(data, isListingSummary){
     isListingSummary = isListingSummary || false;
 
     if(isListingSummary){
         foo = $(data).find('section.listing-summary');
 
-        $('section.listing-summary').replaceWith(foo);      
+        $('section.listing-summary').replaceWith(foo);
         $('section.listing-summary .js-off').hide();
         $('section.listing-summary .js-on.show').show();
         $('section.listing-summary .js-on.hide').hide();
     }
     else{
         foo = $(data).find('#content');
-        $('#content-core').replaceWith(foo); 
+        $('#content-core').replaceWith(foo);
 
     }
     
     //refresh prepOverlay
     try{
-        plonePrettyPhoto.enable(); 
+        plonePrettyPhoto.enable();
     }
     catch(error){
         console.log(error);
@@ -87,7 +86,7 @@ function ajaxLink(target, loadListingSummary, isListingSummary){
         },
         error: function(jqXHR, textStatus, errorThrown){
             //if fails   
-            console.log(errorThrown);   
+            console.log(errorThrown);
         }
     });
 
@@ -101,14 +100,14 @@ function linkMyParams(link_obj){
     var MyParams = "LCMARKER=1&" + $(".aJaXFilter form").serialize();
     
     $(link_obj).each(function( index ) {
-        MyUrl = $(this).attr('href');  
+        MyUrl = $(this).attr('href');
         
         if (MyUrl.indexOf("?") > 0){
             connector ="&";
         }
         else{
             connector ="?";
-        } 
+        }
      
         if(MyUrl.indexOf("LCMARKER=1") < 1){
             //our params are not set yet
@@ -181,7 +180,7 @@ function setPriceBoxes(commander){
                 collapseMe('#formfield-form-widgets-price_min');
                 collapseMe('#formfield-form-widgets-price_max');
                 //open sales price range
-                openMe('#formfield-form-widgets-price_sale');      
+                openMe('#formfield-form-widgets-price_sale');
             }
             if(isRental){
                 // close sales price ranges & mixed limit
@@ -199,11 +198,10 @@ function setPriceBoxes(commander){
         collapseMe('#formfield-form-widgets-price_rent');
         collapseMe('#formfield-form-widgets-price_sale');
         collapseMe('#formfield-form-widgets-price_min');
-        collapseMe('#formfield-form-widgets-price_max');             
-                
+        collapseMe('#formfield-form-widgets-price_max');
     }
-
 }
+
 function collapseMe(field_id) {
         var indicator   = $(field_id).find('.collapser:first');
         var target      = $(field_id).find('.collapse:first');
@@ -297,7 +295,7 @@ $(document).ready(function() {
                     error: function(jqXHR, textStatus, errorThrown){
                         //if fails   
                         console.log('Error:');
-                        console.log(errorThrown);   
+                        console.log(errorThrown);
                     }
                 });
 
@@ -339,6 +337,5 @@ $(document).ready(function() {
         //"remember" form status in links
         linkMyParams($('.listingLink'));
         linkMyParams($('#portal-breadcrumbs a').last());
-        
     }
 });
