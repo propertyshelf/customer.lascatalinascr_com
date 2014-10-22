@@ -5,4 +5,9 @@
       title="Filter Listing Search"
       description="A portlet displaying a Ajax filter for MLS Listings."
   />
+  <portlet
+      addview="portlets.RelatedProperties"
+      title="Related Properties"
+      description="Show related properties on ListingDetails"
+  />
 </portlets>

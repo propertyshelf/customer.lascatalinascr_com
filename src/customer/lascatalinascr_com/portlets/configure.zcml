@@ -6,7 +6,7 @@
 
     <include package="plone.app.portlets" />
     
-    <!-- New Filter Portlet            -->
+    <!-- Listing Filter Portlet            -->
     <!-- ============================= -->
     <plone:portlet
         name="portlets.FilterSearch"
@@ -19,6 +19,18 @@
         edit_permission="cmf.ManagePortal"
     />
 
+    <!-- Related Listings Portlet -->
+    <plone:portlet
+        name="portlets.RelatedProperties"
+        addview=".related_properties.AddForm"
+        assignment=".related_properties.Assignment"
+        editview=".related_properties.EditForm"
+        interface=".related_properties.IRelatedPropertiesPortlet"
+        renderer=".related_properties.Renderer"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+    />
+    <!-- Ajax Search -->
     <browser:page
         for="*"
         name="ajaxListingSearch"
