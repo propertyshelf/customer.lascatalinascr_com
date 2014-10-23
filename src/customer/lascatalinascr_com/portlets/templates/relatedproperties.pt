@@ -7,14 +7,51 @@
     i18n:domain="customer.lascatalinascr_com"
     tal:omit-tag="">
     
-    <dl class="portlet portletFilterSearch aJaXFilter">
+    <dl class="portlet relatedProperties">
         <dt class="portletHeader">
             <span class="portletTopLeft"></span>
             <span tal:omit-tag="" tal:content="view/title | nothing"></span>
             <span class="portletTopRight"></span>
         </dt>
-        <dd class="portletItem">
-            Show related Properties
+        <dd class="portletItem"
+            tal:define="listings view/RelatedListings | nothing;">
+            <div class="listings" >
+                <tal:listings 
+                    tal:condition="listings" 
+                    tal:repeat="listing listings">
+                    <tal:listing 
+                        tal:define="title_org listing/title/value;
+                                    title_split python:title_org.split(': ');
+                                    property_title python:title_split[0];
+                                    listing_title python:title_split[1] if (len(title_split) > 1) else None;
+                                    listing_id listing/id/value;
+                                    listing_category python: 'rent' if (('rl' in listing_id) or ('cl' in listing_id)) else 'sale';
+                                    listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';">
+
+                        <div
+                            tal:attributes="class string:listing_image"
+                            tal:define="image listing/lead_image | nothing">
+                            <a  class="listing_link"
+                                tal:attributes="href string:${view/view_url}${listing/id/value};
+                                                title listing/title/value;">
+                                <img src="" alt=""
+                                    tal:condition="image"
+                                    tal:attributes="src image" /><img
+                                    tal:condition="not:image" alt="" title=""
+                                    src="++resource++plone.mls.listing.images/no-image.png" />
+                            </a>
+                            <div
+                                tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}"
+                                tal:content="listing_status" />
+                        </div>
+                        <a  class="listing_link"
+                            tal:content="property_title"
+                            tal:attributes="href string:${view/view_url}${listing/id/value};
+                                            title listing/title/value;"
+                            tal:condition="property_title"/>
+                    </tal:listing>
+                </tal:listings>
+            </div>
         </dd>
         <div class="visualClear"></div>
     </dl>

@@ -3,11 +3,13 @@
 
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
+from plone.memoize.view import memoize
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.interface import implementer
 from zope import formlib, schema
 from zope.schema.fieldproperty import FieldProperty
 from zope.component import queryMultiAdapter
+from zope.traversing.browser.absoluteurl import absoluteURL
 
 #local imports
 from plone.mls.listing.i18n import _
@@ -73,7 +75,6 @@ class Renderer(base.Renderer):
     _isRental    = False
     _isSale      = False
     _listingType = None
-
     
     @property
     def available(self):
@@ -83,7 +84,6 @@ class Renderer(base.Renderer):
         #available for ListingDetails
         if getattr(self.request, 'listing_id', None) is not None:
             show = True
-
         return show
 
     @property
@@ -109,6 +109,11 @@ class Renderer(base.Renderer):
         except Exception:
             pp(Exception)
             return 4
+
+    @memoize
+    def view_url(self):
+        """Generate view url."""
+        return absoluteURL(self.context, self.request) + '/'
 
     @property
     def ListingType(self):
@@ -157,19 +162,22 @@ class Renderer(base.Renderer):
 
         results, batch = search(search_params, context=self.context)
         
-        items = batch.get('items', 0)
+        try:
+            items = batch.get('items', 0)
+        except Exception:
+            items = 0
+
         #check result set
         if items >=self.Limit:
             return results
-        elif items < 2:
-            # set a min price of $1000 to avoid the listings with empty prices
-            price_min = 1000
+
+        if items < 2:
+            price_min = self.StartPrice *0.6
         else:
-            #if we don't have enough results, search again with smaller price
-            price_min = self.StartPrice * 0.9
+            price_min = self.StartPrice *0.8
 
         # reset search params with new start price
-        search_params['price_min'] = price_min;
+        search_params['price_min'] = price_min
             
         results, batch = search(search_params, context=self.context)
         return results     
