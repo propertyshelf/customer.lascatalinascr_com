@@ -143,9 +143,36 @@ class Renderer(base.Renderer):
     @property
     def StartPrice(self):
         """calculate startprice for related listings"""
-        price = self._listingInfo['price_raw']['value']
+        price = int(self._listingInfo['price_raw']['value'])
         #set startprice on 90% of the current
-        return int(price)+1
+        return int(price*0.9)
+
+    def cleanUpResults(self, results):
+        """Further result optimization"""
+        #filter out clone from results
+        MyListingId = self._listingInfo['id']['value']
+        MyListingId = MyListingId.lower()
+        #actual length -1 (to remove clones)
+        ResultLimit   =len(results)
+        ResultCounter =0
+        Results =[]
+
+        for result in results:
+            validListing = True
+            try:
+                ResultId = result['id']['value']
+            except Exception:
+                ResultId = None
+
+            if MyListingId == ResultId:
+                validListing = False
+            # result passed validation
+            # and we return one result less then we got (clones)
+            if validListing and ResultCounter < ResultLimit:
+                ResultCounter +=1
+                Results.append(result)
+        return Results
+
 
     def RelatedListings(self):
         """get Related Listings"""
@@ -153,34 +180,17 @@ class Renderer(base.Renderer):
         lang= ps.language()
 
         search_params = {
-            'limit': self.Limit,
+            'limit': self.Limit + 1,
             'lang': lang,
             'agency_listings': True,
             'price_min':self.StartPrice,
             'listing_type':self.ListingType
         }
-
-        results, batch = search(search_params, context=self.context)
         
-        try:
-            items = batch.get('items', 0)
-        except Exception:
-            items = 0
-
-        #check result set
-        if items >=self.Limit:
-            return results
-
-        if items < 2:
-            price_min = self.StartPrice *0.6
-        else:
-            price_min = self.StartPrice *0.8
-
-        # reset search params with new start price
-        search_params['price_min'] = price_min
-            
         results, batch = search(search_params, context=self.context)
-        return results     
+        Listings = self.cleanUpResults(results)
+
+        return Listings     
 
 class AddForm(base.AddForm):
     """Add form for the Listing Related Listing Portlet."""
