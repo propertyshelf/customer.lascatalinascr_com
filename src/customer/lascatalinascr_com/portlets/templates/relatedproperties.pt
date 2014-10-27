@@ -19,7 +19,7 @@
                 <tal:listings 
                     tal:condition="listings" 
                     tal:repeat="listing listings">
-                    <tal:listing 
+                    <div   
                         tal:define="title_org listing/title/value;
                                     title_split python:title_org.split(': ');
                                     property_title python:title_split[0];
@@ -28,7 +28,7 @@
                                     listing_category python: 'rent' if (('rl' in listing_id) or ('cl' in listing_id)) else 'sale';
                                     listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';">
 
-                        <div
+                        <div class="listing box"
                             tal:attributes="class string:listing_image"
                             tal:define="image listing/lead_image | nothing">
                             <a  class="listing_link"
@@ -49,7 +49,7 @@
                             tal:attributes="href string:${view/view_url}${listing/id/value};
                                             title listing/title/value;"
                             tal:condition="property_title"/>
-                    </tal:listing>
+                    </div>
                 </tal:listings>
             </div>
         </dd>
