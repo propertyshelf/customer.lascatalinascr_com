@@ -71,7 +71,7 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='lasCatalinas.ListingTypesVocabulary'
+            source='lasCatalinasCR.ListingTypesVocabulary'
         ),
     )
 
@@ -79,7 +79,7 @@ class IFilterSearchLC(form.Schema):
     beds = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='lasCatalinas.BedRoomsVocabulary',
+        source='lasCatalinasCR.BedRoomsVocabulary',
         title=_(u'Number of Bedrooms'),
     )
 
@@ -88,7 +88,7 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'View'),
         value_type=schema.Choice(
-            source='lasCatalinas.ViewVocabulary'
+            source='lasCatalinasCR.ViewVocabulary'
         ),
     )
 
@@ -97,7 +97,7 @@ class IFilterSearchLC(form.Schema):
         default='--NOVALUE--',
         required=False,
         title=_(u'Sales Price Range'),
-        source='lasCatalinas.PriceSaleVocabulary',
+        source='lasCatalinasCR.PriceSaleVocabulary',
         description=_(
             u'Choose a price range for your Properties.'
         ),
@@ -108,7 +108,7 @@ class IFilterSearchLC(form.Schema):
         default='--NOVALUE--',
         required=False,
         title=_(u'Nigthly Rental Price Range'),
-        source='lasCatalinas.PriceRentVocabulary',
+        source='lasCatalinasCR.PriceRentVocabulary',
         description=_(
             u'Choose a price range for your Rental.'
         ),
@@ -118,7 +118,7 @@ class IFilterSearchLC(form.Schema):
     pool = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='lasCatalinas.YesNoVocabulary',
+        source='lasCatalinasCR.YesNoVocabulary',
         title=_(u'Private Pool'),
         description=_(
             u'Care about a pool?'
