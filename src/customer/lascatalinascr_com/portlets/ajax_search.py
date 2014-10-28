@@ -60,10 +60,10 @@ class ajaxSearch(BrowserView):
 
     @property
     def limit(self):
-        """get a limit from the request or set 9"""
+        """get a limit from the request or set 12"""
         if self._limit is not None:
             return self._limit
-        return 9
+        return 12
 
     @property
     def agency_exclusive(self):
