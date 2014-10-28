@@ -144,8 +144,8 @@ class Renderer(base.Renderer):
     def StartPrice(self):
         """calculate startprice for related listings"""
         price = int(self._listingInfo['price_raw']['value'])
-        #set startprice on 90% of the current
-        return int(price*0.9)
+        #set startprice on 75% of the current
+        return int(price*0.75)
 
     def cleanUpResults(self, results):
         """Further result optimization"""
