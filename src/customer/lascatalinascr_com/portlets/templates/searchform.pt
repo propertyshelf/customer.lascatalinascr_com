@@ -70,14 +70,6 @@
           </tal:block>
         </div>
 
-        <div class="form-row-price form-rows"
-             tal:define="widgets view/widgets_price | nothing"
-             tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
-            <metal:field use-macro="template/macros/collapsible_field" />
-          </tal:block>
-        </div>
-
         <div class="form-row-price-sale form-rows"
              tal:define="widgets view/widgets_price_sale | nothing"
              tal:condition="widgets">
