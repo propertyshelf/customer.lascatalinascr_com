@@ -181,15 +181,8 @@ class ajaxSearch(BrowserView):
         priceRange['max']= None
 
         # if its a Rental&Sales Search OR neither one of these:
-        # use the general Price Min/Max
+        # price range is empty
         if (self._isRental and self._isSale) or not(self._isRental or self._isSale):
-            priceRange['min']=params.get('form.widgets.price_min', None)
-            if len(priceRange['min'])<1:
-                priceRange['min']= None
-            priceRange['max']=params.get('form.widgets.price_max', None)
-            if len(priceRange['max'])<1:
-                priceRange['max']= None
-            
             return priceRange
         # only rentals: use rental Price ranges
         elif self._isRental:
@@ -198,29 +191,29 @@ class ajaxSearch(BrowserView):
             if range_key is not None:
                 range_price = PRICE_RENT_VALUES.get(range_key, None)
             else:
-                return None
+                return priceRange
 
             if range_price is not None:
                 priceRange['min']= range_price.get('min', None)
                 priceRange['max']= range_price.get('max', None)
                 return priceRange
             else:
-                return None
+                return priceRange
 
         # only sales: use Sales Price ranges
         elif self._isSale:
             range_key = params.get('form.widgets.price_sale', None)
+            range_price = None
+
             if range_key is not None:
                 range_price = PRICE_SALE_VALUES.get(range_key, None)
-            else:
-                return None
 
             if range_price is not None:
                 priceRange['min']= range_price.get('min', None)
                 priceRange['max']= range_price.get('max', None)
                 return priceRange
             else:
-                return None;
+                return priceRange;
 
         else:
             return priceRange
