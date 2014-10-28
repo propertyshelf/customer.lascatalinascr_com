@@ -19,7 +19,7 @@
                 <tal:listings 
                     tal:condition="listings" 
                     tal:repeat="listing listings">
-                    <div   
+                    <div  class="listing_box"
                         tal:define="title_org listing/title/value;
                                     title_split python:title_org.split(': ');
                                     property_title python:title_split[0];
