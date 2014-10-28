@@ -28,35 +28,34 @@
 
   <!-- Vocabularies for listing searches. -->
   <!-- ================================== -->
-
   <utility
       component=".vocabularies.ListingTypesVocabularyFactory"
-      name="lasCatalinas.ListingTypesVocabulary"
+      name="lasCatalinasCR.ListingTypesVocabulary"
       />
 
   <utility
       component=".vocabularies.BedRoomsVocabularyFactory"
-      name="lasCatalinas.BedRoomsVocabulary"
+      name="lasCatalinasCR.BedRoomsVocabulary"
       />
 
   <utility
       component=".vocabularies.ViewVocabularyFactory"
-      name="lasCatalinas.ViewVocabulary"
+      name="lasCatalinasCR.ViewVocabulary"
       />
 
   <utility
       component=".vocabularies.PriceSaleVocabularyFactory"
-      name="lasCatalinas.PriceSaleVocabulary"
+      name="lasCatalinasCR.PriceSaleVocabulary"
       />
 
   <utility
       component=".vocabularies.PriceRentVocabularyFactory"
-      name="lasCatalinas.PriceRentVocabulary"
+      name="lasCatalinasCR.PriceRentVocabulary"
       />
 
     <utility
       component=".vocabularies.YesNoVocabularyFactory"
-      name="lasCatalinas.YesNoVocabulary"
+      name="lasCatalinasCR.YesNoVocabulary"
       />
  
 </configure>

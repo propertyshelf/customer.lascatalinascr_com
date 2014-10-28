@@ -16,7 +16,7 @@ LISTINGTYPE_VALUES = [
 ]
 
 BEDROOM_VALUES = [
-    ('--NOVALUE--', _(u'Show all')),
+    ('--NOVALUE--', _(u'Show All')),
     (1, '1'),
     (2, '2'),
     (3, '3'),
@@ -31,7 +31,7 @@ VIEW_VALUES = [
 ]
 
 PRICE_SALE_DISPLAY = [
-    ('all',  _(u'Show ALL')),
+    ('all',  _(u'Show All')),
     ('250k', _(u'$250,000 - $500,000')),
     ('500k', _(u'$500,000 - $750,000')),
     ('750k', _(u'$750,000 - $1,000,000 ')),
@@ -47,7 +47,7 @@ PRICE_SALE_VALUES = {
 }
 
 PRICE_RENT_DISPLAY = [
-    ('all', _(u'Show ALL')),
+    ('all', _(u'Show All')),
     ('150', _(u'$150 - $300')),
     ('300', _(u'$300 - $500')),
     ('500', _(u'$500 - $750')),
