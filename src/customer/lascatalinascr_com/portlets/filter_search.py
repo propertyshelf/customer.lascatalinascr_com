@@ -50,10 +50,6 @@ FIELD_ORDER = {
     'row_view_type': [
         'view_type',
     ],
-    'row_price': [
-        'price_min',
-        'price_max',
-    ],
     'row_price_sale': [
         'price_sale',
     ],
@@ -93,22 +89,6 @@ class IFilterSearchLC(form.Schema):
         title=_(u'View'),
         value_type=schema.Choice(
             source='lasCatalinas.ViewVocabulary'
-        ),
-    )
-
-    price_min = schema.TextLine(
-        required=False,
-        title=_(u'Starting Price'),
-        description=_(
-            u'Enter an absolute value in USD for a Sale or a monthly Rental.'
-        ),
-    )
-
-    price_max = schema.TextLine(
-        required=False,
-        title=_(u'Price Limit'),
-        description=_(
-            u'Enter an absolute value in USD for a Sale or a monthly Rental.'
         ),
     )
 
@@ -209,10 +189,6 @@ class FilterSearchForm(form.Form):
     def widgets_view_type(self):
         """Return the widgets for the row ``row_view_type``."""
         return self._widgets('row_view_type')
-
-    def widgets_price(self):
-        """Return the widgets for the row ``row_price``."""
-        return self._widgets('row_price')
 
     def widgets_price_sale(self):
         """Return the widgets for the row ``row_price_sale``."""
