@@ -54,7 +54,6 @@ function refresh_Content(data, isListingSummary){
         console.log(error);
     }
  
-
     //standard pagination links
     //not set by ajaxFilter
     if($('#AjaxFilter').length<1){
@@ -168,26 +167,23 @@ function setPriceBoxes(commander){
             // close sales & rent price ranges
             collapseMe('#formfield-form-widgets-price_sale');
             collapseMe('#formfield-form-widgets-price_rent');
-            //open free text price limit
-            openMe('#formfield-form-widgets-price_min');
-            openMe('#formfield-form-widgets-price_max');
-
+            $('#formfield-form-widgets-price_sale, #formfield-form-widgets-price_rent').fadeOut();
         }
         else{
             if(isSale){
                 // close rent price ranges & mixed limit
                 collapseMe('#formfield-form-widgets-price_rent');
-                collapseMe('#formfield-form-widgets-price_min');
-                collapseMe('#formfield-form-widgets-price_max');
+                $('#formfield-form-widgets-price_rent').fadeOut();
                 //open sales price range
+                $('#formfield-form-widgets-price_sale').fadeIn();
                 openMe('#formfield-form-widgets-price_sale');
             }
             if(isRental){
                 // close sales price ranges & mixed limit
                 collapseMe('#formfield-form-widgets-price_sale');
-                collapseMe('#formfield-form-widgets-price_min');
-                collapseMe('#formfield-form-widgets-price_max');
+                $('#formfield-form-widgets-price_sale').fadeOut();
                 //open rental price range
+                $('#formfield-form-widgets-price_rent').fadeIn();
                 openMe('#formfield-form-widgets-price_rent');
             }
         }
@@ -197,8 +193,7 @@ function setPriceBoxes(commander){
         // close all
         collapseMe('#formfield-form-widgets-price_rent');
         collapseMe('#formfield-form-widgets-price_sale');
-        collapseMe('#formfield-form-widgets-price_min');
-        collapseMe('#formfield-form-widgets-price_max');
+        $('#formfield-form-widgets-price_sale, #formfield-form-widgets-price_rent').fadeOut();
     }
 }
 
@@ -214,10 +209,11 @@ function collapseMe(field_id) {
 function openMe(field_id) {
         var indicator   = $(field_id).find('.collapser:first');
         var target      = $(field_id).find('.collapse:first');
-            
+        
         target.slideDown('normal');
         indicator.addClass('expanded');
         indicator.removeClass('collapsed');
+        
         
 }
 function stateChecker(field_id, field_type){
@@ -327,7 +323,8 @@ $(document).ready(function() {
         $('.aJaXFilter form').removeClass();
 
         //standard setup: field expanded if value is set inside
-        stateChecker('#formfield-form-widgets-listing_type');
+        //stateChecker('#formfield-form-widgets-listing_type');
+        openMe('#formfield-form-widgets-listing_type');
         stateChecker('#formfield-form-widgets-beds', 'radio');
         stateChecker('#formfield-form-widgets-view_type');
         stateChecker('#formfield-form-widgets-pool', 'radio');
@@ -337,5 +334,7 @@ $(document).ready(function() {
         //"remember" form status in links
         linkMyParams($('.listingLink'));
         linkMyParams($('#portal-breadcrumbs a').last());
+        linkMyParams($('.relatedProperties a.listing_link'));
+  
     }
 });
