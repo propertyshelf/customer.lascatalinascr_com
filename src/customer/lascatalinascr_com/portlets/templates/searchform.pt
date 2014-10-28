@@ -54,22 +54,6 @@
           </tal:block>
         </div>
 
-        <div class="form-row-beds form-rows"
-             tal:define="widgets view/widgets_beds | nothing"
-             tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
-            <metal:field use-macro="template/macros/collapsible_field" />
-          </tal:block>
-        </div>
-
-        <div class="form-row-view-type form-rows"
-             tal:define="widgets view/widgets_view_type | nothing"
-             tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
-            <metal:field use-macro="template/macros/collapsible_field" />
-          </tal:block>
-        </div>
-
         <div class="form-row-price-sale form-rows"
              tal:define="widgets view/widgets_price_sale | nothing"
              tal:condition="widgets">
@@ -80,6 +64,22 @@
 
         <div class="form-row-price-rent form-rows"
              tal:define="widgets view/widgets_price_rent | nothing"
+             tal:condition="widgets">
+          <tal:block tal:repeat="widget widgets">
+            <metal:field use-macro="template/macros/collapsible_field" />
+          </tal:block>
+        </div>
+
+        <div class="form-row-beds form-rows"
+             tal:define="widgets view/widgets_beds | nothing"
+             tal:condition="widgets">
+          <tal:block tal:repeat="widget widgets">
+            <metal:field use-macro="template/macros/collapsible_field" />
+          </tal:block>
+        </div>
+
+        <div class="form-row-view-type form-rows"
+             tal:define="widgets view/widgets_view_type | nothing"
              tal:condition="widgets">
           <tal:block tal:repeat="widget widgets">
             <metal:field use-macro="template/macros/collapsible_field" />
