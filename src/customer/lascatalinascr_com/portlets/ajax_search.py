@@ -98,7 +98,6 @@ class ajaxSearch(BrowserView):
             if item == 'form.widgets.beds':
                 if raw !='--NOVALUE--':
                     params['beds_min'] = raw
-                    params['beds_max'] = raw
 
             # map the custom listing types to the mls search
             if item == 'form.widgets.listing_type' and isinstance(raw, (list, tuple, )):
