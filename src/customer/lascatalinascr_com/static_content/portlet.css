@@ -1,0 +1,136 @@
+.portletFilterSearch{
+  
+}
+
+.portletWrapper .portletFilterSearch .portletHeader{
+    background-color: transparent;
+    color: #828282;
+    font-family: Georgia,serif;
+    font-size: 30px;
+    font-weight: normal;
+    padding-left: 0;
+    padding-top: 0;
+}
+
+.portletWrapper .portletFilterSearch .portletItem {
+  background-color: #ebebeb;
+  padding:15px 20px;
+}
+
+.portletFilterSearch .collapsible{
+  margin-bottom:12px;
+}
+
+.portletFilterSearch .formControls #form-buttons-search {
+    display:none;
+    background-color: #00a15f;
+    border: 1px solid #7cc8a9;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 32px;
+    padding: 0 24px;
+    text-transform: uppercase;
+    width: auto;
+    border-radius: 0;
+}
+
+.portletFilterSearch .portletItem form{
+  padding:0;
+}
+
+body input[type="radio"]{
+  margin:3px;
+  margin-right:5px;
+}
+ 
+body input[type="checkbox"]{
+  margin:0 5px 5px 3px;
+}
+
+.portletFilterSearch .portletItem label,
+.portletFilterSearch .portletItem .label{
+  font-size:16px;
+  color:#828282;
+  font-weight:normal;
+}
+
+.portletFilterSearch .portletItem label.horizontal{
+  font-size:18px;
+}
+
+.portletFilterSearch label[for=form-widgets-listing_type-2]{
+  margin-top:15px;
+}
+
+#form-widgets-listing_type-2{
+  margin-top:-2px;
+}
+
+.field input[type="text"],
+.field input[type="text"]:focus {
+  max-width: 99%;
+  background-color:#fff;
+}
+
+/*Related Listings*/
+.portlet.relatedProperties{}
+
+.portlet.relatedProperties dt.portletHeader{
+  background-color: transparent;
+  color: #828282;
+  font-family: Georgia,serif;
+  font-size: 30px;
+  font-weight: normal;
+  padding-left: 0;
+}
+
+.portlet.relatedProperties .listing_image img{
+  padding:0;
+  margin:0;
+  border: 0 none transparent;
+  float:left;
+}
+
+.relatedProperties .status_box {
+    bottom: 0;
+    right:0;
+    color: #fff;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    position: absolute;
+    text-align: center;
+    text-transform: capitalize;
+    width: 80px;
+}
+
+.relatedProperties .status_box.rent {
+    background-color: #00a15f;
+}
+.relatedProperties .status_box.sale {
+    background-color: #5987c5;
+}
+.relatedProperties .status_box.sold {
+    background-color: #ef4034;
+}
+
+.relatedProperties .listing_image{
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 3%;
+    max-width: 46%;
+    min-height: 115px;
+    position: relative;
+}
+
+.relatedProperties .listings {
+  position:relative;
+}
+
+.relatedProperties .listings > a.listing_link{
+  display:none;
+}
+.listing-summary .tileItem {
+    min-height: 420px;
+}
