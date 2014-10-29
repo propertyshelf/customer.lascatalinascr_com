@@ -262,6 +262,14 @@ function stateChecker(field_id, field_type){
     }
 
 }
+function setContentAsCSSclass(options){
+  /*set the value of the fields as css class to the option*/
+  $(options).each(function( index ) {
+    myClass=$(this).find('input').val();
+    $(this).addClass(myClass);
+    });
+
+}
 
 $(document).ready(function() {
     //if the AjaxFilter Portlet is available
@@ -304,6 +312,9 @@ $(document).ready(function() {
             
         });
 
+        //improve the form classes
+        setContentAsCSSclass($('.aJaXFilter span.option'));
+        
         //submit searchform to show results of preserved search?
         if($('section.listing-summary').length>0 && window.location.href.indexOf("LCMARKER=1") > 0){
           $(".aJaXFilter form").submit();

@@ -24,7 +24,7 @@
   <!-- -*- extra stuff goes here -*- -->
   <browser:resourceDirectory
     name="customer.lascatalinascr_com"
-    directory="javascript"/>
+    directory="static_content"/>
 
   <!-- Vocabularies for listing searches. -->
   <!-- ================================== -->
