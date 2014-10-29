@@ -86,12 +86,11 @@
                   <span class="label" tal:content="item/label | nothing"/>
                   <span class="value" tal:content="item/value | nothing"/>
                 </div>
-
-                <div class="lot_size row" tal:define="item listing/lot_size | nothing" tal:condition="item">
+                <div class="lot_size row" tal:define="item listing/lot_size | nothing" 
+                  tal:condition="python: listing_category == 'sale'">
                   <span class="label" tal:content="item/label"/>
                   <span class="value" tal:content="item/value"/>
                 </div>
-
                 <div class="price row" tal:define="item listing/price | nothing" tal:condition="item" >
                   <span class="label" tal:content="item/label"/>
                   <span class="value" tal:content="listing_price"/>
