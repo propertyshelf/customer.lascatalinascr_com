@@ -134,3 +134,17 @@ body input[type="checkbox"]{
 .listing-summary .tileItem {
     min-height: 420px;
 }
+
+/* customer css */
+/* hide carousel in ListingDetails*/
+.template-listing-detail #fullscreen-slider .carousel{
+  display:none;
+}
+
+#fullscreen-slider img.sliderbackgroundimage{
+  display:none;
+}
+
+.template-listing-detail #fullscreen-slider img.sliderbackgroundimage{
+  display:block;
+}
