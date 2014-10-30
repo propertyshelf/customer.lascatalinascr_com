@@ -44,11 +44,6 @@
                                 tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}"
                                 tal:content="listing_status" />
                         </div>
-                        <a  class="listing_link"
-                            tal:content="property_title"
-                            tal:attributes="href string:${view/view_url}${listing/id/value};
-                                            title listing/title/value;"
-                            tal:condition="property_title"/>
                     </div>
                 </tal:listings>
             </div>
