@@ -14,6 +14,13 @@
   <include package=".browser" />
   <include package=".portlets" />
 
+  
+  <!-- -*- extra stuff goes here -*- -->
+  <browser:resourceDirectory
+    name="customer.lascatalinascr_com"
+    directory="static_content"/>
+  
+  <!-- Generic Setup/ Profiles -->
   <genericsetup:registerProfile
       name="default"
       title="customer.lascatalinascr_com"
@@ -21,10 +28,18 @@
       description="Installs the customer.lascatalinascr_com package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  <!-- -*- extra stuff goes here -*- -->
-  <browser:resourceDirectory
-    name="customer.lascatalinascr_com"
-    directory="static_content"/>
+
+  <!-- GenericSetup Upgrade Steps. -->
+  <!-- =========================== -->
+  <genericsetup:upgradeStep
+      title="Upgrade customer.lascatalinascr_com"
+      description="Updates to version 1001"
+      source="0001"
+      destination="1001"
+      handler=".migration.migrate_to_1001"
+      sortkey="1"
+      profile="customer.lascatalinascr_com:default"
+      />
 
   <!-- Vocabularies for listing searches. -->
   <!-- ================================== -->
