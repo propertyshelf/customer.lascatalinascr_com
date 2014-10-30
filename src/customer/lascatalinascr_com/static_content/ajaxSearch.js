@@ -21,6 +21,7 @@ function refresh_ListingSummaryContent(data){
         console.log(error);
     }
     //Pagination Links
+    full_enhance_listingbar();
     $("#AjaxFilter .listingBar a" ).click(function(event){
         event.preventDefault();
         myUrl = $(this).attr('href');
@@ -57,6 +58,7 @@ function refresh_Content(data, isListingSummary){
     //standard pagination links
     //not set by ajaxFilter
     if($('#AjaxFilter').length<1){
+        full_enhance_listingbar();
         $(".listing-summary' .listingBar a" ).click(function(event){
             event.preventDefault();
             myUrl = $(this).attr('href');
@@ -79,7 +81,7 @@ function ajaxLink(target, loadListingSummary, isListingSummary){
                 refresh_ListingSummaryContent(data);
             }
             else{
-                    refresh_Content(data, isListingSummary);
+                refresh_Content(data, isListingSummary);
             }
             
         },
@@ -262,6 +264,7 @@ function stateChecker(field_id, field_type){
     }
 
 }
+
 function setContentAsCSSclass(options){
   /*set the value of the fields as css class to the option*/
   $(options).each(function( index ) {
@@ -269,6 +272,16 @@ function setContentAsCSSclass(options){
     $(this).addClass(myClass);
     });
 
+}
+
+function full_enhance_listingbar(){
+    //remove the ugly [ 1 ] notation and give it a class
+    $('.listingBar').html(function(i,html){
+        foo = html.replace('[','<span class="active">').replace(']','</span>');
+        return foo;
+    });
+    $(".listingBar .next a" ).text('>>');
+    $(".listingBar .previous a").text('<<');
 }
 
 $(document).ready(function() {
