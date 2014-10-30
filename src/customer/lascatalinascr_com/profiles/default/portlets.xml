@@ -10,4 +10,9 @@
       title="Related Properties"
       description="Show related properties on ListingDetails"
   />
+  <portlet
+      addview="portlets.EmbeddingPortlet"
+      title="Embedding Portlet"
+      description="Show Embedding Portlet"
+  />
 </portlets>

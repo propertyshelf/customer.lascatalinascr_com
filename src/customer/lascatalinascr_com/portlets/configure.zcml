@@ -30,6 +30,18 @@
         view_permission="zope2.View"
         edit_permission="cmf.ManagePortal"
     />
+
+    <!-- Embedding Portlet -->
+    <plone:portlet
+        name="portlets.EmbeddingPortlet"
+        addview=".embedding.AddForm"
+        assignment=".embedding.Assignment"
+        editview=".embedding.EditForm"
+        interface=".embedding.IEmbeddingPortlet"
+        renderer=".embedding.Renderer"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+    />
     <!-- Ajax Search -->
     <browser:page
         for="*"
