@@ -41,6 +41,16 @@
       profile="customer.lascatalinascr_com:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Upgrade customer.lascatalinascr_com"
+      description="Updates to version 1002"
+      source="1001"
+      destination="1002"
+      handler=".migration.migrate_to_1002"
+      sortkey="2"
+      profile="customer.lascatalinascr_com:default"
+      />
+
   <!-- Vocabularies for listing searches. -->
   <!-- ================================== -->
   <utility
