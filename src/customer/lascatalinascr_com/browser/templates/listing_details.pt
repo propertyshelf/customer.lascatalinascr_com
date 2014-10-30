@@ -42,7 +42,9 @@
             <dl class="price">
               <tal:item tal:define="item info/price | nothing" tal:condition="item">
                 <dt><span tal:replace="item/label">[Label]</span>:</dt>
-                <dd><span tal:replace="listing_price">[Value]</span></dd>
+                <dd>
+                  <span class="price_addition" tal:condition="python: listing_category == 'rent'">from</span>
+                  <span tal:replace="listing_price">[Value]</span></dd>
               </tal:item>
             </dl>
 
@@ -122,7 +124,8 @@
             <a class="link-overlay" rel="#pb1"
               tal:attributes="href string:./agent-contact?listing-page=${view/base_url}"
               tal:content="contact_text"
-              >Contact one of our agents</a>
+              >[CONTACT BUTTON]</a>
+
 <script type="text/javascript">
 $(document).ready(function() {
   $('.agent-contact-link .link-overlay').prepOverlay({
