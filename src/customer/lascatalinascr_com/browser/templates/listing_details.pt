@@ -18,6 +18,7 @@
                     price_raw listing/price_raw/value;
                     price_rent python: '&#36;%d /day'%(price_raw/30);
                     listing_price python: price_rent if listing_category == 'rent' else price_org;
+                    contact_text python: 'Contact a Sales Associate' if listing_category == 'sale' else 'Contact Reservations';
                     preview_id string:preview_${listing/id/value};">
                     
         <div tal:replace="structure provider:plone.abovecontenttitle" />
@@ -119,7 +120,9 @@
 
           <div class="agent-contact-link">
             <a class="link-overlay" rel="#pb1"
-              tal:attributes="href string:./agent-contact?listing-page=${view/base_url}">Contact one of our agents</a>
+              tal:attributes="href string:./agent-contact?listing-page=${view/base_url}"
+              tal:content="contact_text"
+              >Contact one of our agents</a>
 <script type="text/javascript">
 $(document).ready(function() {
   $('.agent-contact-link .link-overlay').prepOverlay({
