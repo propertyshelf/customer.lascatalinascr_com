@@ -1,6 +1,17 @@
 Changelog
 =========
 
+0.5RC1
+-----------
+implemented features close to first finalization
+
+- Ajax based FilterPortlet
+- Related Properties Portlet
+- Embedding Portlet for Listing Details
+- highly customizes ListingResults and ListingDetails
+- mapplic integration
+- prep overlays, ....
+
 1.0dev (unreleased)
 -------------------
 
