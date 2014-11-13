@@ -130,6 +130,7 @@ function setPriceBoxes(commander){
     /* Check the form status and set the correct behaviour */
     isSale   = false;
     isRental = false;
+    isLot    = false;
     isMixed  = false;
 
     settings = $(commander).find('input:checked');
@@ -151,6 +152,7 @@ function setPriceBoxes(commander){
                 case 'sale':    isSale= true;
                                 break;
                 case 'lot':     isSale= true;
+                                isLot= true;
                                 break;
                 default:        break;
             }
@@ -163,6 +165,16 @@ function setPriceBoxes(commander){
         }
         else{
             isMixed     = false;
+        }
+
+        if(isLot){
+            //for Lots: hide pool and beds
+            collapseMe('#formfield-form-widgets-pool');
+            collapseMe('#formfield-form-widgets-beds');
+            $('#formfield-form-widgets-pool, #formfield-form-widgets-beds').fadeOut();
+        }
+        else{
+            $('#formfield-form-widgets-pool, #formfield-form-widgets-beds').fadeIn();
         }
 
         if(isMixed){
@@ -196,6 +208,7 @@ function setPriceBoxes(commander){
         collapseMe('#formfield-form-widgets-price_rent');
         collapseMe('#formfield-form-widgets-price_sale');
         $('#formfield-form-widgets-price_sale, #formfield-form-widgets-price_rent').fadeOut();
+        $('#formfield-form-widgets-pool, #formfield-form-widgets-beds').fadeIn();
     }
 }
 
@@ -208,6 +221,7 @@ function collapseMe(field_id) {
         indicator.addClass('collapsed');
         
 }
+
 function openMe(field_id) {
         var indicator   = $(field_id).find('.collapser:first');
         var target      = $(field_id).find('.collapse:first');
@@ -218,6 +232,7 @@ function openMe(field_id) {
         
         
 }
+
 function stateChecker(field_id, field_type){
     field_type  = field_type || "checkbox";
     openField = false;
