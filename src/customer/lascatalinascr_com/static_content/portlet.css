@@ -1,8 +1,17 @@
-.portletFilterSearch{
-  
+dl.portlet dt, 
+div.portletAssignments div.portletHeader {
+    background: none repeat scroll 0 0 transparent;
+    line-height: normal;
+    padding: 0.42em 1em;
 }
 
-.portletWrapper .portletFilterSearch .portletHeader{
+.option.class_750k label{
+  width:100%;
+}
+
+.portletWrapper .portletFilterSearch .portletHeader,
+body dl.portlet dt, 
+body div.portletAssignments div.portletHeader{
     background-color: transparent;
     color: #828282;
     font-family: Georgia,serif;
