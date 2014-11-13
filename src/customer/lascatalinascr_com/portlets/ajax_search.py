@@ -35,6 +35,7 @@ class ajaxSearch(BrowserView):
     _batching = None
     _isRental = None
     _isSale   = None
+    _isLot    = None
     _limit    = None
     _agency_listings = None
 
@@ -115,6 +116,13 @@ class ajaxSearch(BrowserView):
                 if 'lot' in raw:
                     lt += 'll'
                     self._isSale = True
+                    self._isLot  = True
+
+                elif self._isSale:
+                    # also show land listings if only "Sale" is selected
+                    lt += 'll'
+                    self._isLot  = False
+
 
                 params['listing_type'] = lt
                 #special object types?
@@ -129,8 +137,9 @@ class ajaxSearch(BrowserView):
                 params['object_type']= ot
 
             #just include pool param if Yes or No is selected (get all otherwise)
+            # new feature: disable pool when land listing
             if item == 'form.widgets.pool':
-                if raw != '--NOVALUE--':
+                if raw != '--NOVALUE--' and not self._isLot:
                   params['pool'] = raw
 
             #reset form.widgets.view_type
