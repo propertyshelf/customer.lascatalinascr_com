@@ -268,7 +268,7 @@ function stateChecker(field_id, field_type){
 function setContentAsCSSclass(options){
   /*set the value of the fields as css class to the option*/
   $(options).each(function( index ) {
-    myClass=$(this).find('input').val();
+    myClass="class_" + $(this).find('input').val();
     $(this).addClass(myClass);
     });
 
