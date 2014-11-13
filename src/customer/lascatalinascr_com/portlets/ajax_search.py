@@ -96,9 +96,6 @@ class ajaxSearch(BrowserView):
                 except Exception, e:
                     pp(e)
             
-            if item == 'form.widgets.beds':
-                if raw !='--NOVALUE--':
-                    params['beds_min'] = raw
 
             # map the custom listing types to the mls search
             if item == 'form.widgets.listing_type' and isinstance(raw, (list, tuple, )):
@@ -141,6 +138,10 @@ class ajaxSearch(BrowserView):
             if item == 'form.widgets.pool':
                 if raw != '--NOVALUE--' and not self._isLot:
                   params['pool'] = raw
+
+            if item == 'form.widgets.beds':
+                if raw !='--NOVALUE--' and not self._isLot:
+                    params['beds_min'] = raw
 
             #reset form.widgets.view_type
             if item == "form.widgets.view_type" and isinstance(raw, (list, tuple, )):
