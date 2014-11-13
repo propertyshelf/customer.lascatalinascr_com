@@ -28,6 +28,7 @@ BEDROOM_VALUES = [
 VIEW_VALUES = [
     ('ocean_view', _(u'Ocean View')),
     ('oceanfront', _(u'Ocean Front')),
+    ('garden_view', _(u'Garden View')),
 ]
 
 PRICE_SALE_DISPLAY = [

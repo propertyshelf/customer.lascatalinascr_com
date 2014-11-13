@@ -145,8 +145,15 @@ class ajaxSearch(BrowserView):
 
             #reset form.widgets.view_type
             if item == "form.widgets.view_type" and isinstance(raw, (list, tuple, )):
+                viewtype = ''
+
                 if "ocean_view" in raw:
-                    params['view_type'] = 'ocean_view'
+                    viewtype += 'ocean_view, '
+
+                if "garden_view" in raw:
+                    viewtype += 'garden_view'
+
+                params['view_type'] = viewtype
 
                 if "oceanfront" in raw:
                     params['location_type'] = 'oceanfront'

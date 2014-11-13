@@ -71,7 +71,7 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='lasCatalinasCR.ListingTypesVocabulary'
+            source='lasCatalinas_cr.ListingTypesVocabulary'
         ),
     )
 
@@ -79,7 +79,7 @@ class IFilterSearchLC(form.Schema):
     beds = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='lasCatalinasCR.BedRoomsVocabulary',
+        source='lasCatalinas_cr.BedRoomsVocabulary',
         title=_(u'Number of Bedrooms'),
     )
 
@@ -88,7 +88,7 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'View'),
         value_type=schema.Choice(
-            source='lasCatalinasCR.ViewVocabulary'
+            source='lasCatalinas_cr.ViewVocabulary'
         ),
     )
 
@@ -97,7 +97,7 @@ class IFilterSearchLC(form.Schema):
         default='--NOVALUE--',
         required=False,
         title=_(u'Sales Price Range'),
-        source='lasCatalinasCR.PriceSaleVocabulary',
+        source='lasCatalinas_cr.PriceSaleVocabulary',
         description=_(
             u'Choose a price range for your Properties.'
         ),
@@ -108,7 +108,7 @@ class IFilterSearchLC(form.Schema):
         default='--NOVALUE--',
         required=False,
         title=_(u'Nigthly Rental Price Range'),
-        source='lasCatalinasCR.PriceRentVocabulary',
+        source='lasCatalinas_cr.PriceRentVocabulary',
         description=_(
             u'Choose a price range for your Rental.'
         ),
@@ -118,7 +118,7 @@ class IFilterSearchLC(form.Schema):
     pool = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='lasCatalinasCR.YesNoVocabulary',
+        source='lasCatalinas_cr.YesNoVocabulary',
         title=_(u'Private Pool'),
         description=_(
             u'Care about a pool?'
@@ -220,7 +220,7 @@ class IFilterSearchPortlet(IPortletDataProvider):
         ),
         required=False,
         title=_(u'Limit the results'),
-        default=u'9'
+        default=u'12'
     )
 
     agency_listings = schema.Bool(

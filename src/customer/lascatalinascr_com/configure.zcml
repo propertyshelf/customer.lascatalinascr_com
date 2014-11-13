@@ -55,32 +55,32 @@
   <!-- ================================== -->
   <utility
       component=".vocabularies.ListingTypesVocabularyFactory"
-      name="lasCatalinasCR.ListingTypesVocabulary"
+      name="lasCatalinas_cr.ListingTypesVocabulary"
       />
 
   <utility
       component=".vocabularies.BedRoomsVocabularyFactory"
-      name="lasCatalinasCR.BedRoomsVocabulary"
+      name="lasCatalinas_cr.BedRoomsVocabulary"
       />
 
   <utility
       component=".vocabularies.ViewVocabularyFactory"
-      name="lasCatalinasCR.ViewVocabulary"
+      name="lasCatalinas_cr.ViewVocabulary"
       />
 
   <utility
       component=".vocabularies.PriceSaleVocabularyFactory"
-      name="lasCatalinasCR.PriceSaleVocabulary"
+      name="lasCatalinas_cr.PriceSaleVocabulary"
       />
 
   <utility
       component=".vocabularies.PriceRentVocabularyFactory"
-      name="lasCatalinasCR.PriceRentVocabulary"
+      name="lasCatalinas_cr.PriceRentVocabulary"
       />
 
-    <utility
+  <utility
       component=".vocabularies.YesNoVocabularyFactory"
-      name="lasCatalinasCR.YesNoVocabulary"
+      name="lasCatalinas_cr.YesNoVocabulary"
       />
  
 </configure>
