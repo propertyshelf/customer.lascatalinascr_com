@@ -284,6 +284,30 @@ function full_enhance_listingbar(){
     $(".listingBar .previous a").text('<<');
 }
 
+/*Incluse Mapplic JS*/
+function mapplic_hash(){
+    // set page id also as hash value
+    // needed for Mapplic deeplinking
+    foo = location.pathname.split('/');
+    id =foo[foo.length-1];
+    location.hash=id;
+}
+
+function unhash_link(links){
+  //replace hash links to real links
+  $(links).each(function( index ) {
+
+    href_o = $(this).attr('href').replace('#','');
+    foo = location.pathname.split('/');
+    last = foo.length-1;
+    foo[last]=href_o;
+    href_n= foo.join('/');
+
+    $(this).attr('href', href_n);
+  });
+  
+}
+
 $(document).ready(function() {
     //if the AjaxFilter Portlet is available
     // execute the AjaxSearch
