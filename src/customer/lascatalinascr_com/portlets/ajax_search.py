@@ -26,6 +26,33 @@ def encode_dict(in_dict):
         out_dict[k] = v
     return out_dict
 
+def getMinMax(beds):
+    """Set Min&Max value for beds"""
+    out_dict = {}
+    minBeds = 0
+    maxBeds = 0
+
+    
+    for v in beds:
+        pp(v)
+        value = int(v)
+        pp(value)
+
+        if value > 0 and minBeds <1 and maxBeds <1:
+            minBeds= value
+            maxBeds= value
+
+        if value < minBeds:
+            minBeds = value
+
+        if value > maxBeds:
+            maxBeds = value
+
+    out_dict['Min'] = minBeds
+    out_dict['Max'] = maxBeds
+
+    return out_dict
+
 
 class ajaxSearch(BrowserView):
     """Deliver search results for ajax calls"""
@@ -139,9 +166,10 @@ class ajaxSearch(BrowserView):
                 if raw != '--NOVALUE--' and not self._isLot:
                   params['pool'] = raw
 
-            if item == 'form.widgets.beds':
-                if raw !='--NOVALUE--' and not self._isLot:
-                    params['beds_min'] = raw
+            if item == 'form.widgets.beds' and not self._isLot:
+                    rawMinMax = getMinMax(raw)
+                    params['beds_min'] = rawMinMax['Min']
+                    params['beds_max'] = rawMinMax['Max']
 
             #reset form.widgets.view_type
             if item == "form.widgets.view_type" and isinstance(raw, (list, tuple, )):
