@@ -16,7 +16,6 @@ LISTINGTYPE_VALUES = [
 ]
 
 BEDROOM_VALUES = [
-    ('--NOVALUE--', _(u'Show All')),
     (1, '1'),
     (2, '2'),
     (3, '3'),

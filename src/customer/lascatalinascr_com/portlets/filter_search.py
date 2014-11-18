@@ -71,16 +71,17 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='lasCatalinas_cr.ListingTypesVocabulary'
+            source='lasCatalinascr_com.ListingTypesVocabulary'
         ),
     )
 
-    form.widget(beds=radio.RadioFieldWidget)
-    beds = schema.Choice(
-        default='--NOVALUE--',
+    form.widget(beds=checkbox.CheckBoxFieldWidget)
+    beds = schema.Tuple(
         required=False,
-        source='lasCatalinas_cr.BedRoomsVocabulary',
         title=_(u'Number of Bedrooms'),
+        value_type=schema.Choice(
+            source='lasCatalinascr_com.BedRoomsVocabulary'
+        ),
     )
 
     form.widget(view_type=checkbox.CheckBoxFieldWidget)
@@ -88,7 +89,7 @@ class IFilterSearchLC(form.Schema):
         required=False,
         title=_(u'View'),
         value_type=schema.Choice(
-            source='lasCatalinas_cr.ViewVocabulary'
+            source='lasCatalinascr_com.ViewVocabulary'
         ),
     )
 
@@ -97,7 +98,7 @@ class IFilterSearchLC(form.Schema):
         default='--NOVALUE--',
         required=False,
         title=_(u'Sales Price Range'),
-        source='lasCatalinas_cr.PriceSaleVocabulary',
+        source='lasCatalinascr_com.PriceSaleVocabulary',
         description=_(
             u'Choose a price range for your Properties.'
         ),
@@ -108,7 +109,7 @@ class IFilterSearchLC(form.Schema):
         default='--NOVALUE--',
         required=False,
         title=_(u'Nigthly Rental Price Range'),
-        source='lasCatalinas_cr.PriceRentVocabulary',
+        source='lasCatalinascr_com.PriceRentVocabulary',
         description=_(
             u'Choose a price range for your Rental.'
         ),
@@ -118,7 +119,7 @@ class IFilterSearchLC(form.Schema):
     pool = schema.Choice(
         default='--NOVALUE--',
         required=False,
-        source='lasCatalinas_cr.YesNoVocabulary',
+        source='lasCatalinascr_com.YesNoVocabulary',
         title=_(u'Private Pool'),
         description=_(
             u'Care about a pool?'
@@ -136,7 +137,7 @@ class FilterSearchForm(form.Form):
     enable_unload_protection = False
 
     fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['beds'].widgetFactory = radio.RadioFieldWidget
+    fields['beds'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['view_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['price_sale'].widgetFactory = radio.RadioFieldWidget
     fields['price_rent'].widgetFactory = radio.RadioFieldWidget
