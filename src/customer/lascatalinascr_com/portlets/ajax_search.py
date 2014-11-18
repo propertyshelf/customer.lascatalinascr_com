@@ -31,12 +31,9 @@ def getMinMax(beds):
     out_dict = {}
     minBeds = 0
     maxBeds = 0
-
     
     for v in beds:
-        pp(v)
         value = int(v)
-        pp(value)
 
         if value > 0 and minBeds <1 and maxBeds <1:
             minBeds= value
