@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.6RC1
+-----------
+- AjaxFilter Portlet: Limit bedroom results and checkboxes for form
+
 0.5RC1
 -----------
 implemented features close to first finalization
@@ -12,7 +16,7 @@ implemented features close to first finalization
 - mapplic integration
 - prep overlays, ....
 
-1.0dev (unreleased)
+1.0dev
 -------------------
 
 - Package created using zopeskel
