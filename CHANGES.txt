@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.6RC2
+-----------
+- deactivate development output, minor clean up
+
 0.6RC1
 -----------
 - AjaxFilter Portlet: Limit bedroom results and checkboxes for form
