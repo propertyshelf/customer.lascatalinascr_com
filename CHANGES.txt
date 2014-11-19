@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.0
+-----------
+Confirmed Release 11/19/2014
+
 0.6RC2
 -----------
 - deactivate development output, minor clean up
