@@ -11,12 +11,12 @@ from zope.schema.fieldproperty import FieldProperty
 from zope.component import queryMultiAdapter
 from zope.traversing.browser.absoluteurl import absoluteURL
 
-#local imports
+# local imports
 from plone.mls.listing.i18n import _
 from plone.mls.listing.api import search
-from pprint import pprint as pp
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet shows Related Listings on ListingDetails.')
+
 
 class IRelatedPropertiesPortlet(IPortletDataProvider):
     """A portlet displaying related properties on ListingDetail"""
@@ -46,6 +46,7 @@ class IRelatedPropertiesPortlet(IPortletDataProvider):
         title=_(u'Agency Listings'),
     )
 
+
 @implementer(IRelatedPropertiesPortlet)
 class Assignment(base.Assignment):
     """Related Listing Portlet Assignment."""
@@ -53,13 +54,13 @@ class Assignment(base.Assignment):
     heading = FieldProperty(IRelatedPropertiesPortlet['heading'])
     try:
         limit = int(FieldProperty(IRelatedPropertiesPortlet['limit']))
-    except Exception,e:
+    except Exception, e:
         limit = None
     try:
         agency_listings = bool(FieldProperty(IRelatedPropertiesPortlet['agency_listings']))
-    except Exception,e:
+    except Exception, e:
         agency_listings = True
-    
+
     title = _(u'Related Listings')
 
     def __init__(self, heading=None, limit=None, agency_listings=None):
@@ -72,16 +73,16 @@ class Renderer(base.Renderer):
     """Related Listing Portlet Renderer."""
     render = ViewPageTemplateFile('templates/relatedproperties.pt')
 
-    _isRental    = False
-    _isSale      = False
+    _isRental = False
+    _isSale = False
     _listingType = None
-    
+
     @property
     def available(self):
         """Check the portlet availability."""
         """Show on ListingDetails"""
         show = False
-        #available for ListingDetails
+        # available for ListingDetails
         if getattr(self.request, 'listing_id', None) is not None:
             show = True
         return show
@@ -107,7 +108,6 @@ class Renderer(base.Renderer):
         try:
             return int(self.data.limit)
         except Exception:
-            pp(Exception)
             return 4
 
     @memoize
@@ -117,18 +117,18 @@ class Renderer(base.Renderer):
 
     @property
     def ListingType(self):
-        """return ListingType of active listing""" 
+        """return ListingType of active listing"""
 
         if self._listingType is not None:
             return self._listingType
 
         elif self._listingInfo is not None:
-            #set ListingType
+            # set ListingType
             try:
                 listingID = self._listingInfo['id']['value']
                 self._listingType = listingID[:2].lower()
-            except Exception, e:
-                pp(e)
+            except Exception:
+                pass
 
             if self._listingType == 'rl' or self._listingType == 'cl':
                 self._isRental = True
@@ -144,18 +144,18 @@ class Renderer(base.Renderer):
     def StartPrice(self):
         """calculate startprice for related listings"""
         price = int(self._listingInfo['price_raw']['value'])
-        #set startprice on 75% of the current
-        return int(price*0.75)
+        # set startprice on 75% of the current
+        return int(price * 0.75)
 
     def cleanUpResults(self, results):
         """Further result optimization"""
-        #filter out clone from results
+        # filter out clone from results
         MyListingId = self._listingInfo['id']['value']
         MyListingId = MyListingId.lower()
-        #actual length -1 (to remove clones)
-        ResultLimit   =len(results)
-        ResultCounter =0
-        Results =[]
+        # actual length -1 (to remove clones)
+        ResultLimit = len(results)
+        ResultCounter = 0
+        Results = []
 
         for result in results:
             validListing = True
@@ -169,33 +169,33 @@ class Renderer(base.Renderer):
             # result passed validation
             # and we return one result less then we got (clones)
             if validListing and ResultCounter < ResultLimit:
-                ResultCounter +=1
+                ResultCounter += 1
                 Results.append(result)
         return Results
-
 
     def RelatedListings(self):
         """get Related Listings"""
         ps = queryMultiAdapter((self.context, self.request), name='plone_portal_state')
-        lang= ps.language()
+        lang = ps.language()
 
         search_params = {
             'limit': self.Limit + 1,
             'lang': lang,
             'agency_listings': True,
-            'price_min':self.StartPrice,
-            'listing_type':self.ListingType
+            'price_min': self.StartPrice,
+            'listing_type': self.ListingType
         }
-        
+
         results, batch = search(search_params, context=self.context)
         Listings = self.cleanUpResults(results)
 
-        return Listings     
+        return Listings
+
 
 class AddForm(base.AddForm):
     """Add form for the Listing Related Listing Portlet."""
     form_fields = formlib.form.Fields(IRelatedPropertiesPortlet)
-    
+
     label = _(u'Add Related Listing Portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -208,7 +208,6 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Listing FilterSearch portlet."""
     form_fields = formlib.form.Fields(IRelatedPropertiesPortlet)
-    
+
     label = _(u'Edit FilterSearch portlet')
     description = MSG_PORTLET_DESCRIPTION
-

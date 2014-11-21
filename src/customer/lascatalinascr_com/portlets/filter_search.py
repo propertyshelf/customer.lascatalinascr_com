@@ -32,7 +32,7 @@ except ImportError:
     # define fallbacks if plone.mls.listing is not installed
     PLONE_MLS_LISTING = False
 
-#local imports
+# local imports
 from plone.mls.listing.i18n import _
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet shows a Ajax Filter for MLS Listings.')
@@ -46,7 +46,7 @@ FIELD_ORDER = {
     'row_beds': [
         'beds',
     ],
-    
+
     'row_view_type': [
         'view_type',
     ],
@@ -55,10 +55,10 @@ FIELD_ORDER = {
     ],
     'row_price_rent': [
         'price_rent',
-    ], 
+    ],
     'row_pool': [
         'pool',
-    ],    
+    ],
 
 }
 
@@ -129,7 +129,7 @@ class IFilterSearchLC(form.Schema):
 
 class FilterSearchForm(form.Form):
     """Filter Search Form."""
-    
+
     fields = field.Fields(IFilterSearchLC)
     template = ViewPageTemplateFile('templates/searchform.pt')
     ignoreContext = True
@@ -148,14 +148,14 @@ class FilterSearchForm(form.Form):
             This one also takes an optional ``data`` attribute so it can be
             instantiated from within a portlet without loosing access to the
             portlet data.
-        """       
+        """
         super(FilterSearchForm, self).__init__(context, request)
         self.data = data
 
     def updateWidgets(self):
         super(FilterSearchForm, self).updateWidgets()
 
-    @button.buttonAndHandler(PMF(u'label_search', default=u'Search'),name='search')
+    @button.buttonAndHandler(PMF(u'label_search', default=u'Search'), name='search')
     def handle_search(self, action):
         """Search button."""
         data, errors = self.extractData()
@@ -167,7 +167,7 @@ class FilterSearchForm(form.Form):
     def action(self):
         """See interfaces.IInputForm."""
         action_url = self.request.getURL()
-        index = action_url.rfind("/")
+        index = action_url.rfind('/')
         action = action_url[:index] + '/@@ajaxListingSearch'
 
         return action
@@ -177,7 +177,6 @@ class FilterSearchForm(form.Form):
         widget_data = dict(self.widgets.items())
         available_fields = FIELD_ORDER.get(row, [])
         return [widget_data.get(field, None) for field in available_fields]
-
 
     def widgets_listing_type(self):
         """Return the widgets for the row ``row_listing_type``."""
@@ -232,6 +231,7 @@ class IFilterSearchPortlet(IPortletDataProvider):
         title=_(u'Agency Listings'),
     )
 
+
 @implementer(IFilterSearchPortlet)
 class Assignment(base.Assignment):
     """Filter Search Portlet Assignment."""
@@ -239,13 +239,13 @@ class Assignment(base.Assignment):
     heading = FieldProperty(IFilterSearchPortlet['heading'])
     try:
         limit = int(FieldProperty(IFilterSearchPortlet['limit']))
-    except Exception,e:
+    except Exception, e:
         limit = None
     try:
         agency_listings = bool(FieldProperty(IFilterSearchPortlet['agency_listings']))
-    except Exception,e:
+    except Exception, e:
         agency_listings = True
-    
+
     title = _(u'Ajax Filter')
     mode = 'SEARCH'
 
@@ -266,19 +266,19 @@ class Renderer(base.Renderer):
         form = self.request.form
         show = False
 
-        #available for ListingCollections
+        # available for ListingCollections
         if listing_collection.IListingCollection.providedBy(self.context):
             show = True
-        #available for Recent Listings
+        # available for Recent Listings
         if recent_listings.IRecentListings.providedBy(self.context):
             show = True
-        #available for Listing Search in Result Mode
-        
+        # available for Listing Search in Result Mode
+
         if listing_search.IListingSearch.providedBy(self.context) and \
                 'form.buttons.search' in form.keys():
             show = True
-        
-        #available for ListingDetails
+
+        # available for ListingDetails
         if getattr(self.request, 'listing_id', None) is not None:
             show = True
 
@@ -291,7 +291,6 @@ class Renderer(base.Renderer):
             return self.data.heading
         return self.data.title
 
-        
     @property
     def mode(self):
         """Return the mode that we are in.
@@ -305,8 +304,7 @@ class Renderer(base.Renderer):
 
     def update(self):
         z2.switch_on(self, request_layer=IFormLayer)
-        self.form = FilterSearchForm(aq_inner(self.context), self.request,
-                                    self.data)
+        self.form = FilterSearchForm(aq_inner(self.context), self.request, self.data)
         if HAS_WRAPPED_FORM:
             alsoProvides(self.form, IWrappedForm)
         self.form.update()
@@ -315,7 +313,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """Add form for the Listing FilterSearch portlet."""
     form_fields = formlib.form.Fields(IFilterSearchPortlet)
-    
+
     label = _(u'Add FilterSearch portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -328,7 +326,6 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Listing FilterSearch portlet."""
     form_fields = formlib.form.Fields(IFilterSearchPortlet)
-    
+
     label = _(u'Edit FilterSearch portlet')
     description = MSG_PORTLET_DESCRIPTION
-

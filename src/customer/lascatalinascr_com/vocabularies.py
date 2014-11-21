@@ -31,19 +31,19 @@ VIEW_VALUES = [
 ]
 
 PRICE_SALE_DISPLAY = [
-    ('all',  _(u'Show All')),
+    ('all', _(u'Show All')),
     ('250k', _(u'$250,000 - $500,000')),
     ('500k', _(u'$500,000 - $750,000')),
     ('750k', _(u'$750,000 - $1,000,000 ')),
-    ('1000k',_(u'$1,000,000+')),
+    ('1000k', _(u'$1,000,000+')),
 ]
 
 PRICE_SALE_VALUES = {
-    'all':  {"min":    None, "max":  None},
-    '250k': {"min":  250000, "max":  500000},
-    '500k': {"min":  500000, "max":  750000},
-    '750k': {"min":  750000, "max": 1000000},
-    '1000k':{"min": 1000000, "max": None}  
+    'all': {"min": None, "max": None},
+    '250k': {"min": 250000, "max": 500000},
+    '500k': {"min": 500000, "max": 750000},
+    '750k': {"min": 750000, "max": 1000000},
+    '1000k': {"min": 1000000, "max": None}
 }
 
 PRICE_RENT_DISPLAY = [
@@ -56,12 +56,12 @@ PRICE_RENT_DISPLAY = [
 ]
 
 PRICE_RENT_VALUES = {
-    'all':  {"min":    None, "max": None},
-    '150':  {"min":  150*30, "max":  300*30},
-    '300':  {"min":  300*30, "max":  500*30},
-    '500':  {"min":  500*30, "max":  750*30},
-    '750':  {"min":  750*30, "max": 1000*30},
-    '1000': {"min": 1000*30, "max": None} 
+    'all': {"min": None, "max": None},
+    '150': {"min": 150 * 30, "max": 300 * 30},
+    '300': {"min": 300 * 30, "max": 500 * 30},
+    '500': {"min": 500 * 30, "max": 750 * 30},
+    '750': {"min": 750 * 30, "max": 1000 * 30},
+    '1000': {"min": 1000 * 30, "max": None}
 }
 
 YES_NO_VALUES = [
@@ -69,6 +69,7 @@ YES_NO_VALUES = [
     (0, _(u'No')),
     ('--NOVALUE--', _(u'All'))
 ]
+
 
 def vocabulize(myList):
     """Convert Lists into z3c form vocaularies """

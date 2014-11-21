@@ -18,7 +18,7 @@ function refresh_ListingSummaryContent(data){
         plonePrettyPhoto.enable();
     }
     catch(error){
-        console.log(error);
+        
     }
     //Pagination Links
     full_enhance_listingbar();
@@ -52,7 +52,7 @@ function refresh_Content(data, isListingSummary){
         plonePrettyPhoto.enable();
     }
     catch(error){
-        console.log(error);
+        
     }
  
     //standard pagination links
@@ -86,8 +86,6 @@ function ajaxLink(target, loadListingSummary, isListingSummary){
             
         },
         error: function(jqXHR, textStatus, errorThrown){
-            //if fails   
-            console.log(errorThrown);
         }
     });
 
@@ -350,8 +348,6 @@ $(document).ready(function() {
                     },
                     error: function(jqXHR, textStatus, errorThrown){
                         //if fails   
-                        console.log('Error:');
-                        console.log(errorThrown);
                     }
                 });
 

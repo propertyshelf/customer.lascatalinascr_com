@@ -7,10 +7,11 @@ from zope.interface import implementer
 from zope import formlib, schema
 from zope.schema.fieldproperty import FieldProperty
 
-#local imports
+# local imports
 from plone.mls.listing.i18n import _
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet let include embedding text.')
+
 
 class IEmbeddingPortlet(IPortletDataProvider):
     """ A embedding portlet """
@@ -20,11 +21,12 @@ class IEmbeddingPortlet(IPortletDataProvider):
         title=_(u'Embedding Title'),
     )
 
-    plugin_code =schema.Text(
+    plugin_code = schema.Text(
         description=_(u'Please enter the Embedding Code.'),
         required=False,
         title=_(u'Embedding Code'),
     )
+
 
 @implementer(IEmbeddingPortlet)
 class Assignment(base.Assignment):
@@ -42,13 +44,13 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Embedding Portlet Renderer."""
     render = ViewPageTemplateFile('templates/embedding.pt')
-    
+
     @property
     def available(self):
         """Check the portlet availability."""
         """Show on ListingDetails"""
         show = False
-        #available for ListingDetails
+        # available for ListingDetails
         if getattr(self.request, 'listing_id', None) is not None:
             show = True
         return show
@@ -70,7 +72,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """Add form for the Listing Related Listing Portlet."""
     form_fields = formlib.form.Fields(IEmbeddingPortlet)
-    
+
     label = _(u'Add Embedding Portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -83,7 +85,6 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Listing FilterSearch portlet."""
     form_fields = formlib.form.Fields(IEmbeddingPortlet)
-    
+
     label = _(u'Edit Embedding portlet')
     description = MSG_PORTLET_DESCRIPTION
-
