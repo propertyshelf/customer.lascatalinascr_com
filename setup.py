@@ -44,6 +44,9 @@ setup(name='customer.lascatalinascr_com',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'plone.app.dexterity [grok]',
+          'plone.directives.form',
+          'plone.mls.listing >= 0.9.11',
       ],
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
