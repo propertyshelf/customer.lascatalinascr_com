@@ -98,22 +98,67 @@
             </dl>
           </div>
 
-          <div id="listing-images">
+          <div id="listing-images"
+               tal:define="images view/images | nothing;
+                           lead_image view/lead_image | nothing;
+                           use_fotorama view/use_fotorama | nothing;
+                           use_galleria view/use_galleria | python: True;">
             <h2 class="hiddenStructure" i18n:translate="">Listing Images</h2>
-            <a href="" rel="prettyPhoto[listing]" class="preview"
-               tal:define="image view/lead_image | nothing"
-               tal:condition="image"
-               tal:attributes="href image/url;
-                               title image/title | nothing;"><img src=""
-               tal:attributes="src image/preview" /></a>
-            <ul class="thumbnails" tal:define="images view/images | nothing" tal:condition="images" style="list-style: none; margin-left: 0;">
-              <li tal:repeat="image images" style="display: inline-block; padding: 0.5em;"><a href="" rel="prettyPhoto[listing]"
-                  tal:attributes="href image/url;
-                                  title image/title | nothing;"><img src="" alt="" title=""
-                  tal:attributes="src image/tile;
-                                  alt image/title | nothing;
-                                  title image/description | nothing" /></a></li>
-            </ul>
+            <tal:leadimage tal:condition="python: not images and lead_image">
+              <a href="" rel="prettyPhoto[listing]" class="preview"
+                 tal:condition="lead_image"
+                 tal:attributes="href lead_image/url;
+                                 title lead_image/title | nothing;"><img src=""
+                 tal:attributes="src lead_image/preview" /></a>
+            </tal:leadimage>
+
+            <tal:fotorama tal:condition="python: images and use_fotorama">
+              <div class=""
+                   data-allow-full-screen="native"
+                   data-autoplay="true"
+                   data-loop="true"
+                   data-max-width="875"
+                   data-nav="thumbs"
+                   data-ratio="3/2"
+                   data-width="100%">
+                <tal:images tal:repeat="image images">
+                  <a href="" data-caption=""
+                     tal:define="caption image/title;
+                                 description image/description | nothing;
+                                 caption python: description and ' - '.join([caption, description]) or caption"
+                     tal:attributes="href image/url;
+                                     data-caption caption"><img src="" alt=""
+                     tal:attributes="src image/thumb;
+                                     title image/title;
+                                     alt image/description;" /></a>
+                </tal:images>
+              </div>
+              <script type="text/javascript">
+                jQuery(function(jq) {
+                  jq('#listing-images > div').addClass('fotorama');
+                  jq('.fotorama').fotorama();
+                });
+              </script>
+            </tal:fotorama>
+
+            <tal:galleria tal:condition="python: images and use_galleria">
+              <a href="" rel="prettyPhoto[listing]" class="preview"
+                 tal:condition="lead_image"
+                 tal:attributes="href lead_image/url;
+                                 title lead_image/title | nothing;"><img src=""
+                 tal:attributes="src lead_image/preview" /></a>
+              <ul class="thumbnails"
+                  tal:condition="images" style="list-style: none; margin-left: 0;">
+                <li tal:repeat="image images" style="display: inline-block; padding: 0.5em;"><a href="" rel="prettyPhoto[listing]"
+                    tal:attributes="href image/url;
+                                    title image/title | nothing;"><img src="" alt="" title=""
+                    tal:attributes="src image/tile;
+                                    alt image/title | nothing;
+                                    title image/description | nothing" /></a></li>
+              </ul>
+              <script type="text/javascript" src="++resource++plone.mls.listing.javascript/galleria-1.2.2.js"></script>
+              <script type="text/javascript" src="++resource++plone.mls.listing.javascript/classic/galleria.classic.min.js"></script>
+            </tal:galleria>
           </div>
 
           <div class="visualClear">
@@ -169,16 +214,14 @@ $(document).ready(function() {
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
       </div>
-      <script type="text/javascript" src="++resource++plone.mls.listing.javascript/galleria-1.2.2.js"></script>
-      <script type="text/javascript" src="++resource++plone.mls.listing.javascript/classic/galleria.classic.min.js"></script>
       <script language="javascript" type="text/javascript">
-  function popitup(url) {
-    newwindow = window.open(url, 'name', 'left=0');
-    if (window.focus) {
-      newwindow.focus();
-    }
-    return false;
-  }
+        function popitup(url) {
+          newwindow = window.open(url, 'name', 'left=0');
+          if (window.focus) {
+            newwindow.focus();
+          }
+          return false;
+        }
       </script>
     </metal:main>
   </body>
