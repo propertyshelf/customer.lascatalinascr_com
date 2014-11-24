@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1
+-----------
+- fix test setup
+- clean up code (Flake8)
+- tested for new jQuery (1.8.3) update
+
 1.0
 -----------
 Confirmed Release 11/19/2014
