@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.2
+-----------
+- Filter Portlet: Sales&Lot just shows Land Listings [https://propertyshelf.atlassian.net/browse/CUSWEBDEV-259]
+- AjaxSearch: fix pagination bug [https://propertyshelf.atlassian.net/browse/CUSWEBDEV-258]
+
 1.1
 -----------
 - fix test setup
