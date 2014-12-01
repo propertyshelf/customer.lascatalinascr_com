@@ -197,7 +197,7 @@ class ajaxSearch(BrowserView):
             if item == 'form.widgets.view_type' and isinstance(raw, (list, tuple, )):
                 params['view_type'] = self.__view_type(raw)
 
-            if 'oceanfront' in raw:
+            if isinstance(raw, (list, tuple, )) and 'oceanfront' in raw:
                 params['location_type'] = 'oceanfront'
 
             # Remove all None-Type values.
