@@ -103,17 +103,18 @@ class ajaxSearch(BrowserView):
         if not isinstance(raw, (list, tuple, )):
             return lt
 
-        if 'rental' in raw:
-            lt += 'rl, cl,'
-            self._isRental = True
-
         if 'sale' in raw:
             lt += 'rs, cs,'
             self._isSale = True
 
         # land listings
         if 'lot' in raw:
-            lt += 'll'
+            if self._isSale:
+                #just show land listings when sale & lot is selected
+                lt = 'll'
+            else:
+                lt += 'll'
+                
             self._isSale = True
             self._isLot = True
 
@@ -121,6 +122,10 @@ class ajaxSearch(BrowserView):
             # also show land listings if only "Sale" is selected
             lt += 'll'
             self._isLot = False
+
+        if 'rental' in raw:
+            lt += 'rl, cl,'
+            self._isRental = True
 
         return lt
 
