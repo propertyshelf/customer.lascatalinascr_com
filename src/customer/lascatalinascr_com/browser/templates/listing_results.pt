@@ -48,6 +48,7 @@
                     price_raw listing/price_raw/value;
                     price_rent python: '&#36;%d /day'%(price_raw/30);
                     listing_price python: price_rent if listing_category == 'rent' else price_org;
+                    price_label python: 'Price from' if listing_category == 'rent' else 'Price';
                     listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';
                     preview_id string:preview_${listing/id/value};
                     ">
@@ -92,7 +93,7 @@
                   <span class="value" tal:content="item/value"/>
                 </div>
                 <div class="price row" tal:define="item listing/price | nothing" tal:condition="item" >
-                  <span class="label" tal:content="item/label"/>
+                  <span class="label" tal:content="price_label"/>
                   <span class="value" tal:content="listing_price"/>
                 </div>
 
