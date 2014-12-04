@@ -1,5 +1,6 @@
 .listing-summary figure .status_box.sale.Sold,
-.listing-summary figure .status_box.rent.Sold{
+.listing-summary figure .status_box.rent.Sold,
+.pp_content_container .pp_content .status_box.Sold{
    background-color:#ef4034;
 }
 
