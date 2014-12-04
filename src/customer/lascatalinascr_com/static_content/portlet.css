@@ -1,3 +1,8 @@
+.listing-summary figure .status_box.sale.Sold,
+.listing-summary figure .status_box.rent.Sold{
+   background-color:#ef4034;
+}
+
 dl.portlet dt, 
 div.portletAssignments div.portletHeader {
     background: none repeat scroll 0 0 transparent;

@@ -43,13 +43,17 @@
                     listing_price python: price_rent if listing_category == 'rent' else price_org;
                     listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';
                     preview_id string:preview_${listing/id/value};
+                    workflow listing/workflow_status/value;
+                    workflow_status python: listing_status if workflow == 'Active' else workflow;
+                    price_label python: 'Price from' if listing_category == 'rent' else 'Price';
+
                     ">
    
         <div class="js-on show listing-summary" style="display:none;">
            <div tal:attributes="id preview_id" class="js-on hide QuickPreview" style="display:none;">
               <div
                  tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}"
-                 tal:content="listing_status"></div>
+                 tal:content="workflow_status"></div>
 
               <div
                  tal:attributes="class string:listing_title">
@@ -87,7 +91,7 @@
                 </div>
 
                 <div class="price row" tal:define="item listing/price | nothing" tal:condition="item" >
-                  <span class="label" tal:content="item/label"/>
+                  <span class="label" tal:content="price_label"/>
                   <span class="value" tal:content="listing_price"/>
                 </div>
 
@@ -113,7 +117,7 @@
                      src="++resource++plone.mls.listing.images/no-image.png" />
             <div
                  tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}"
-                 tal:content="listing_status"></div>
+                 tal:content="workflow_status"></div>
           </a>
           <figcaption>
             <small><span tal:replace="listing/title/value">[Caption]</span></small>
@@ -131,7 +135,7 @@
                   <span class="value"  tal:content="item/value | nothing"/>
           </div>
           <div class="price row" tal:define="item listing/price | nothing" tal:condition="item" >
-                  <span class="label" tal:content="item/label"/>:
+                  <span class="label" tal:content="price_label"/>:
                   <span class="value" tal:content="listing_price"/>
           </div>
         </section>
