@@ -109,11 +109,7 @@ class ajaxSearch(BrowserView):
 
         # land listings
         if 'lot' in raw:
-            if self._isSale:
-                #just show land listings when sale & lot is selected
-                lt = 'll'
-            else:
-                lt += 'll'
+            lt = 'll,'
                 
             self._isSale = True
             self._isLot = True
@@ -124,7 +120,7 @@ class ajaxSearch(BrowserView):
             self._isLot = False
 
         if 'rental' in raw:
-            lt += 'rl, cl,'
+            lt += 'rl, cl'
             self._isRental = True
 
         return lt
@@ -144,10 +140,17 @@ class ajaxSearch(BrowserView):
         viewtype = ''
 
         if 'ocean_view' in raw:
-            viewtype += 'ocean_view, '
+            viewtype += 'ocean_view'
 
         if 'garden_view' in raw:
+            if len(viewtype)>0:
+                viewtype +=','
             viewtype += 'garden_view'
+
+        if 'oceanfront' in raw:
+            if len(viewtype)>0:
+                viewtype +=','
+            viewtype += 'other'
 
         return viewtype
 
@@ -201,9 +204,6 @@ class ajaxSearch(BrowserView):
             # reset form.widgets.view_type
             if item == 'form.widgets.view_type' and isinstance(raw, (list, tuple, )):
                 params['view_type'] = self.__view_type(raw)
-
-            if isinstance(raw, (list, tuple, )) and 'oceanfront' in raw:
-                params['location_type'] = 'oceanfront'
 
             # Remove all None-Type values.
             if raw is not None or raw == '--NOVALUE--':
