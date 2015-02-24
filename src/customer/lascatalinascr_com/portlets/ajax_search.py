@@ -120,7 +120,7 @@ class ajaxSearch(BrowserView):
 
         elif self._isSale:
             # also show land listings if only "Sale" is selected
-            lt += 'll'
+            lt += 'll,'
             self._isLot = False
 
         if 'rental' in raw:
