@@ -321,6 +321,41 @@ function unhash_link(links){
   
 }
 
+function reset_link_show(){
+    //if reset link don't exist, add it to the end of the form
+    console.log('switch ON');
+    if ($('.aJaXFilter form .reset').length<1){
+        $('.aJaXFilter form').append('<a class="reset ajax_reset">Clear Filter</a>');
+    }
+    else{
+        $('.aJaXFilter form .reset').show();
+    }
+
+}
+
+function reset_link_hide(){
+    console.log('switch OFF');
+    $('.aJaXFilter form .reset').hide();
+}
+
+function switch_Reset(){
+    //if any checkbox/ radion button is active show Link
+    console.log($(".aJaXFilter form input:checked").not('#form-widgets-pool-2'));
+    if($(".aJaXFilter form input:checked").not('#form-widgets-pool-2').length>0){
+        reset_link_show();
+    }
+    //else hide it
+    else{
+        reset_link_hide();
+    }
+}
+
+function reset_ajaxform(){
+    console.log('reset form fields');
+    $('.aJaXFilter form').get(0).reset();
+}
+
+
 $(document).ready(function() {
     //if the AjaxFilter Portlet is available
     // execute the AjaxSearch
@@ -365,14 +400,23 @@ $(document).ready(function() {
         
         //submit searchform to show results of preserved search?
         if($('section.listing-summary').length>0 && window.location.href.indexOf("LCMARKER=1") > 0){
+          switch_Reset();
           $(".aJaXFilter form").submit();
         }
 
         //add change event to form fields
         // no submit button needed
         $(".aJaXFilter input").change(function(){
+            switch_Reset();
             $(".aJaXFilter form").submit();
         });
+        
+        $(".aJaXFilter form").on('reset', function(e){
+            switch_Reset();
+            // update results after form reset
+            $(".aJaXFilter form").submit();
+        });
+
         // add UI Price improvements
         $(".aJaXFilter #formfield-form-widgets-listing_type").change(function(){
             setPriceBoxes(this);
