@@ -323,24 +323,26 @@ function unhash_link(links){
 
 function reset_link_show(){
     //if reset link don't exist, add it to the end of the form
-    console.log('switch ON');
     if ($('.aJaXFilter form .reset').length<1){
-        $('.aJaXFilter form').append('<a class="reset ajax_reset">Clear Filter</a>');
+        $('.aJaXFilter form').append('<span class="reset ajax_reset">Clear Filter</span>');
     }
     else{
         $('.aJaXFilter form .reset').show();
     }
+    $('.aJaXFilter form .reset').click(function(event){
+        event.preventDefault();
+        reset_ajaxform();
+        return false;
+    });
 
 }
 
 function reset_link_hide(){
-    console.log('switch OFF');
     $('.aJaXFilter form .reset').hide();
 }
 
 function switch_Reset(){
     //if any checkbox/ radion button is active show Link
-    console.log($(".aJaXFilter form input:checked").not('#form-widgets-pool-2'));
     if($(".aJaXFilter form input:checked").not('#form-widgets-pool-2').length>0){
         reset_link_show();
     }
