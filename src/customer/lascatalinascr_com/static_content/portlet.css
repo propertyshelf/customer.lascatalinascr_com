@@ -88,7 +88,7 @@ body input[type="checkbox"]{
   background-color:#fff;
 }
 
-/*Related Listings*/
+/* Related Listings */
 .portlet.relatedProperties{}
 
 .portlet.relatedProperties dt.portletHeader{
@@ -162,4 +162,16 @@ body input[type="checkbox"]{
 
 .template-listing-detail #fullscreen-slider img.sliderbackgroundimage{
   display:block;
+}
+
+.portletFilterSearch .ajax_reset{
+  position:absolute;
+  bottom:-15px;
+  right:0;
+  cursor:pointer;
+  letter-spacing: 0.1px;
+}
+
+.portletFilterSearch .portletItem form{
+  position:relative;
 }
