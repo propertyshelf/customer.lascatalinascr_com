@@ -356,8 +356,28 @@ function switch_Reset(){
 function reset_ajaxform(){
     console.log('reset form fields');
     $('.aJaXFilter form').get(0).reset();
+    $(".aJaXFilter form").submit();
+    //show correct form status
+    openMe('#formfield-form-widgets-listing_type');
+    stateChecker('#formfield-form-widgets-beds', 'radio');
+    stateChecker('#formfield-form-widgets-view_type');
+    stateChecker('#formfield-form-widgets-pool', 'radio');
+    //set price display
+    setPriceBoxes('#formfield-form-widgets-listing_type');
+    //hide reset link
+    switch_Reset();
 }
 
+function clearQueue(){
+    request_count= AjaxQueue.length;
+
+    for (var i = 0; i < request_count; i++) {
+        stopper=AjaxQueue.pop();
+        stopper.abort();
+    }
+}
+
+var AjaxQueue = [];
 
 $(document).ready(function() {
     //if the AjaxFilter Portlet is available
@@ -368,13 +388,15 @@ $(document).ready(function() {
             e.preventDefault(); //STOP default action
 
             var formURL = $(this).attr("action");
+            //stop active ajax calls
+            clearQueue();
             
             if($('.template-listing-detail').length<1){
                 //if we are not on listing details
                 // send ajax request
                 var postData = $(this).serializeArray();
                 
-                $.ajax({
+                var caller = $.ajax({
                     url : formURL,
                     type: "POST",
                     crossDomain: false,
@@ -388,6 +410,8 @@ $(document).ready(function() {
                         //if fails   
                     }
                 });
+
+                AjaxQueue.push(caller);
 
             }
             else{
@@ -417,7 +441,6 @@ $(document).ready(function() {
         $(".aJaXFilter form").on('reset', function(e){
             switch_Reset();
             // update results after form reset
-            $(".aJaXFilter form").submit();
         });
 
         // add UI Price improvements
@@ -430,6 +453,7 @@ $(document).ready(function() {
 
         //standard setup: field expanded if value is set inside
         //stateChecker('#formfield-form-widgets-listing_type');
+        switch_Reset();
         openMe('#formfield-form-widgets-listing_type');
         stateChecker('#formfield-form-widgets-beds', 'radio');
         stateChecker('#formfield-form-widgets-view_type');
