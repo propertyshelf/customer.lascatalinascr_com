@@ -329,6 +329,7 @@ function reset_link_show(){
     else{
         $('.aJaXFilter form .reset').show();
     }
+    $('.aJaXFilter form .reset').off("click");
     $('.aJaXFilter form .reset').click(function(event){
         event.preventDefault();
         reset_ajaxform();
