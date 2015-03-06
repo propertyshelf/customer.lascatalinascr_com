@@ -372,6 +372,12 @@ function clearQueue(){
     }
 }
 
+function back2Results(header){
+    myUrl= searchUrl();
+    $(header).html('<a class="back2results" href="'+myUrl+'"">Back to Results</a>');
+    linkMyParams($('a.back2results'));
+}
+
 var AjaxQueue = [];
 
 $(document).ready(function() {
@@ -419,6 +425,11 @@ $(document).ready(function() {
 
         //improve the form classes
         setContentAsCSSclass($('.aJaXFilter span.option'));
+
+        //Improve Display for ListingDetails
+        if($('.template-listing-detail').length>0){
+            back2Results($('.aJaXFilter .portletHeader'));
+        }
         
         //submit searchform to show results of preserved search?
         if($('section.listing-summary').length>0 && window.location.href.indexOf("LCMARKER=1") > 0){
