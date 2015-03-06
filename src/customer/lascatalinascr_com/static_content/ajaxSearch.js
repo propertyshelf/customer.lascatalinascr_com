@@ -356,6 +356,7 @@ function switch_Reset(){
 function reset_ajaxform(){
     console.log('reset form fields');
     $('.aJaXFilter form').get(0).reset();
+    window.location.search='';
     $(".aJaXFilter form").submit();
     //show correct form status
     openMe('#formfield-form-widgets-listing_type');
