@@ -175,3 +175,14 @@ body input[type="checkbox"]{
 .portletFilterSearch .portletItem form{
   position:relative;
 }
+
+.float_left{
+  float:left;
+}
+.short_info{
+  float:none;
+  clear:both;
+  overflow:auto;
+  width:100%;
+  min-height: 1em;
+}

@@ -227,8 +227,6 @@ function openMe(field_id) {
         target.slideDown('normal');
         indicator.addClass('expanded');
         indicator.removeClass('collapsed');
-        
-        
 }
 
 function stateChecker(field_id, field_type){
@@ -378,6 +376,59 @@ function back2Results(header){
     linkMyParams($('a.back2results'));
 }
 
+function short_info(){
+ //use data input to give back a easy to access array for mapping
+  dict=[];
+
+  if($('dl.price dd').length>0){
+    dict.price= $('dl.price dd').html();
+  }else{dict.price=null;}
+  
+  if($('#listing-info dd.object_type').length>0){
+    dict.propertytype= $('#listing-info dd.object_type').html();
+  }else{dict.propertytype=null;}
+  
+  if($('#listing-info dd.beds_baths').length>0){
+    dict.bed_bath= $('#listing-info dd.beds_baths').html();
+  }else{dict.bed_bath=null;}
+
+  if($('#listing-info dd.lot_size').length>0){
+    dict.lotsize= $('#listing-info dd.lot_size').html();
+  }else{dict.lotsize=null;}
+  
+  if($('#listing-details .living_area td').length>0){
+        dict.lotsize= $('#listing-details .living_area td').html();
+  }
+  
+  pool_text = $(".pool_meta td").html();
+  if(pool_text !='No'){
+      pool_text ='Yes';
+  }
+  dict.pool= pool_text;
+
+  seperator='&nbsp;&nbsp;|&nbsp;&nbsp;';
+  html_string = '<div class="short_info">';
+  if(dict.propertytype!==null){
+      html_string += '<div class="float_left"><span class="label type"><b>TYPE</b>&nbsp;&nbsp;</span><span class="value type">'+dict.propertytype+seperator+'</span></div>';
+  }
+  if(dict.bed_bath!==null){
+      html_string += '<div class="float_left"><span class="label bed_bath"><b>BED/ BATH</b>&nbsp;&nbsp;</span><span class="value bed_bath">'+dict.bed_bath+seperator+'</span></div>';
+  }
+  if(dict.lotsize!==null){
+      html_string += '<div class="float_left"><span class="label size"><b>SIZE</b>&nbsp;&nbsp;</span><span class="value size">'+dict.lotsize+seperator+'</span></div>';
+  }
+  if(dict.price!==null){
+    seperator='';
+    html_string += '<div class="float_left"><span class="label price"><b>PRICE</b>&nbsp;&nbsp;</span><span class="value price">'+dict.price+seperator+'</span></div>';
+  }
+
+  html_string += '</div>';
+  
+  $("#listing-info").before(html_string);
+  $("#listing-info").hide();
+  return true;
+}
+
 var AjaxQueue = [];
 
 $(document).ready(function() {
@@ -429,6 +480,7 @@ $(document).ready(function() {
         //Improve Display for ListingDetails
         if($('.template-listing-detail').length>0){
             back2Results($('.aJaXFilter .portletHeader'));
+            short_info();
         }
         
         //submit searchform to show results of preserved search?
