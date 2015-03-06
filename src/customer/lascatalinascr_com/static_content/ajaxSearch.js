@@ -353,20 +353,14 @@ function switch_Reset(){
     }
 }
 
+function searchUrl(){
+    SearchPath=$(".aJaXFilter form").attr('action');
+    pathArray = SearchPath.split('@@');
+    return pathArray[0];
+}
+
 function reset_ajaxform(){
-    console.log('reset form fields');
-    $('.aJaXFilter form').get(0).reset();
-    window.location.search='';
-    $(".aJaXFilter form").submit();
-    //show correct form status
-    openMe('#formfield-form-widgets-listing_type');
-    stateChecker('#formfield-form-widgets-beds', 'radio');
-    stateChecker('#formfield-form-widgets-view_type');
-    stateChecker('#formfield-form-widgets-pool', 'radio');
-    //set price display
-    setPriceBoxes('#formfield-form-widgets-listing_type');
-    //hide reset link
-    switch_Reset();
+    window.location.href=searchUrl();
 }
 
 function clearQueue(){
