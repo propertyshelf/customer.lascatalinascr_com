@@ -19,7 +19,11 @@
                     price_rent python: '&#36;%d /day'%(price_raw/30);
                     listing_price python: price_rent if listing_category == 'rent' else price_org;
                     contact_text python: 'Contact a Sales Associate' if listing_category == 'sale' else 'Contact Reservations';
-                    preview_id string:preview_${listing/id/value};">
+                    preview_id string:preview_${listing/id/value};
+                    listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';
+                    workflow listing/workflow_status/value;
+                    workflow_status python: listing_status if workflow == 'Active' else workflow;
+                    ">
                     
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
@@ -181,6 +185,10 @@ $(document).ready(function() {
 })
 </script>
 
+          </div>
+          <div
+            tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}">
+              <span tal:content="workflow_status"/>
           </div>
 
 

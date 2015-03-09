@@ -24,6 +24,7 @@ body div.portletAssignments div.portletHeader{
     font-size: 30px;
     font-weight: normal;
     padding-left: 0;
+    padding-right:0;
     padding-top: 0;
 }
 
@@ -185,4 +186,12 @@ body input[type="checkbox"]{
   overflow:auto;
   width:100%;
   min-height: 1em;
+}
+.back2results,
+a.back2results,
+a.back2results:hover{
+  background: #ffffff url("backarrow.png") no-repeat 0 5px;
+  padding-left:35px;
+  letter-spacing: -1.6px;
+  color:#828282 !important;
 }
