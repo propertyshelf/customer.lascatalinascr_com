@@ -172,7 +172,7 @@
           <div class="visualClear">
             <div class="descriptionBox" tal:content="view/long_description | view/description | nothing" />
           </div>
-
+        <div class="below_description">
           <div class="agent-contact-link">
             <a class="link-overlay" rel="#pb1"
               tal:attributes="href string:./agent-contact?listing-page=${view/base_url}"
@@ -194,6 +194,7 @@ $(document).ready(function() {
             tal:attributes="class string:status_box ${listing_category} ${listing/workflow_status/value}">
               <span tal:content="workflow_status"/>
           </div>
+        </div>
 
 
           <dl id="listing-details" class="enableFormTabbing" tal:define="groups view/groups | nothing" tal:condition="groups">

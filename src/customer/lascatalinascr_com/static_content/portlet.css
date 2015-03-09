@@ -205,3 +205,37 @@ a.back2results:hover{
   display: table-row !important;
 }
 
+.template-listing-detail .below_description{
+  position:relative;
+}
+.template-listing-detail .status_box {
+    position:absolute;
+    right: 0;
+    bottom:0;
+    color: #fff;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 13px;
+    line-height: 1.5em;
+    position: absolute;
+    text-align: center;
+    text-transform: capitalize;
+    width: 90px;
+    height:35px;
+}
+.template-listing-detail .status_box span
+{
+  position: relative;
+  top: 8px;
+  letter-spacing: 0.5px;
+}
+
+.template-listing-detail .status_box.rent {
+    background-color: #00a15f;
+}
+.template-listing-detail .status_box.sale {
+    background-color: #5987c5;
+}
+.template-listing-detail .status_box.sold {
+    background-color: #ef4034;
+}
+
