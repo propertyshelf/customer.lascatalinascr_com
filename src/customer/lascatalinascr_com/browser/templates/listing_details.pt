@@ -23,7 +23,11 @@
                     listing_status python: 'Rental' if listing_category == 'rent' else 'Sale';
                     workflow listing/workflow_status/value;
                     workflow_status python: listing_status if workflow == 'Active' else workflow;
-                    ">
+                    object_type listing/object_type/value |nothing;
+                    isCondo python: True if object_type=='Condominium' else False;
+                    detail_cssClass python: 'listing detail condo' if isCondo else 'listing detail';
+                    "
+          tal:attributes="class detail_cssClass">
                     
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
