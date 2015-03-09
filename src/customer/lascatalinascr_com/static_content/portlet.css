@@ -195,3 +195,13 @@ a.back2results:hover{
   letter-spacing: -1.6px;
   color:#828282 !important;
 }
+
+/* hide in listingDetails*/
+.template-listing-detail .condo .lot_size{
+  display:none !important;
+}
+
+.template-listing-detail .condo .floor_unit{
+  display: table-row !important;
+}
+
