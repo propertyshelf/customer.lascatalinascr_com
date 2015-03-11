@@ -238,4 +238,7 @@ a.back2results:hover{
 .template-listing-detail .status_box.sold {
     background-color: #ef4034;
 }
+.template-listing-detail .status_box.PendingSale{
+  background-color: #ffa500 !important;
+}
 
