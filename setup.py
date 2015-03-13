@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
-import os
 
-version = '1.4dev'
+
+version = '1.4'
 
 long_description = (
     open('README.md').read()
@@ -16,20 +16,21 @@ long_description = (
 
 setup(name='customer.lascatalinascr_com',
       version=version,
-      description="Custom Implementations of the propertyshelf MLS embedding for lascatalinascr.com",
+      description=("Custom Implementations of the propertyshelf MLS embedding "
+                   "for lascatalinascr.com"),
       long_description=long_description,
       # Get more strings from
-       classifiers=[
-        "Environment :: Web Environment",
-        "Operating System :: OS Independent",
-        "Framework :: Zope2",
-        "Framework :: Plone",
-        "Framework :: Plone :: 4.2",
-        "Framework :: Plone :: 4.3",
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.6",
-        "Programming Language :: Python :: 2.7",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+      classifiers=[
+          "Environment :: Web Environment",
+          "Operating System :: OS Independent",
+          "Framework :: Zope2",
+          "Framework :: Plone",
+          "Framework :: Plone :: 4.2",
+          "Framework :: Plone :: 4.3",
+          "Programming Language :: Python",
+          "Programming Language :: Python :: 2.6",
+          "Programming Language :: Python :: 2.7",
+          "Topic :: Software Development :: Libraries :: Python Modules",
       ],
       keywords='Plone LasCatalinas Propertyshelf',
       author='Propertyshelf, Inc.',
@@ -37,7 +38,7 @@ setup(name='customer.lascatalinascr_com',
       url='https://github.com/propertyshelf/customer.lascatalinascr_com',
       license='gpl',
       packages=find_packages('src'),
-      package_dir = {'': 'src'},
+      package_dir={'': 'src'},
       namespace_packages=['customer'],
       include_package_data=True,
       zip_safe=False,
@@ -51,7 +52,7 @@ setup(name='customer.lascatalinascr_com',
       extras_require={'test': ['plone.app.testing']},
       entry_points="""
       # -*- Entry points: -*-
-  	  [z3c.autoinclude.plugin]
-  	  target = plone
+        [z3c.autoinclude.plugin]
+        target = plone
       """,
       )

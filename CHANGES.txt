@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.4
+------------
+- improved filter behavior
+- new Status Box for Listing Details
+- improved ListingDetail short-info
+- "Back to Results" Link
+- add "Clear Filter" link for Filter Portlet
+
 1.3
 -----------
 - Listing Summary templates updated
