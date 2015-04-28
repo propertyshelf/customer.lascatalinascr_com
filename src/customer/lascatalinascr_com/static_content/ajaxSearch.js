@@ -130,6 +130,7 @@ function setPriceBoxes(commander){
     isRental = false;
     isLot    = false;
     isMixed  = false;
+    isBuilding = false;
 
     settings = $(commander).find('input:checked');
     if (settings.length>0){
@@ -152,6 +153,10 @@ function setPriceBoxes(commander){
                 case 'lot':     isSale= true;
                                 isLot= true;
                                 break;
+                case 'home':    isBuilding= true;
+                                break;
+                case 'condo':   isBuilding= true;
+                                break;
                 default:        break;
             }
 
@@ -170,9 +175,22 @@ function setPriceBoxes(commander){
             collapseMe('#formfield-form-widgets-pool');
             collapseMe('#formfield-form-widgets-beds');
             $('#formfield-form-widgets-pool, #formfield-form-widgets-beds').fadeOut();
+
+            //disable home & condo
+            $('.class_home input, .class_condo input').attr("disabled",true);
         }
         else{
             $('#formfield-form-widgets-pool, #formfield-form-widgets-beds').fadeIn();
+            //ensable home & condo
+            $('.class_home input, .class_condo input').removeAttr("disabled");
+        }
+
+        // hide lot for rentals 
+        if(isRental){
+            $('.option.class_lot').fadeOut();
+        }
+        else{
+            $('.option.class_lot').fadeIn();
         }
 
         if(isMixed){
@@ -200,13 +218,24 @@ function setPriceBoxes(commander){
             }
         }
 
+        if(isBuilding){
+            //disable lot
+            $('.class_lot input').attr("disabled",true);
+        }
+        else{
+            $('.class_lot input').removeAttr("disabled");
+        }
+
     }
     if(isEmpty){
+        //ensable home & condo
+        $('.class_home input, .class_condo input, .class_lot input').removeAttr("disabled");
         // close all
         collapseMe('#formfield-form-widgets-price_rent');
         collapseMe('#formfield-form-widgets-price_sale');
         $('#formfield-form-widgets-price_sale, #formfield-form-widgets-price_rent').fadeOut();
-        $('#formfield-form-widgets-pool, #formfield-form-widgets-beds').fadeIn();
+        $('#formfield-form-widgets-pool, #formfield-form-widgets-beds, .option.class_lot').fadeIn();
+
     }
 }
 
