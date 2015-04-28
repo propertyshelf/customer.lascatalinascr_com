@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.5
+------------
+- UX improved AjaxFilter
+- Filter reacts on the choice of "Rental", "Lot", "Home", "Condo"
+
 1.4
 ------------
 - improved filter behavior
