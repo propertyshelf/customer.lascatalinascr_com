@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.6
+------------
+- add PhotoWall portlet for ListingDetails
+
 1.5
 ------------
 - UX improved AjaxFilter
