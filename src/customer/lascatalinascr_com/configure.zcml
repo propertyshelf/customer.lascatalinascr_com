@@ -51,6 +51,15 @@
       profile="customer.lascatalinascr_com:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Upgrade customer.lascatalinascr_com"
+      description="Updates to version 1003"
+      source="1002"
+      destination="1003"
+      handler=".migration.migrate_to_1003"
+      sortkey="3"
+      profile="customer.lascatalinascr_com:default"
+      />
   <!-- Vocabularies for listing searches. -->
   <!-- ================================== -->
   <utility

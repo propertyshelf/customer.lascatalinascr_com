@@ -29,3 +29,13 @@ def migrate_to_1002(context):
     site = getUtility(IPloneSiteRoot)
     setup = getToolByName(site, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
+
+
+def migrate_to_1003(context):
+    """Migrate from 1002 to 1003.
+    * Register PhotoWall portlet.
+    """
+    site = getUtility(IPloneSiteRoot)
+    setup = getToolByName(site, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
+    setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
