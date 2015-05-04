@@ -42,6 +42,17 @@
         view_permission="zope2.View"
         edit_permission="cmf.ManagePortal"
     />
+    <!-- PhotoWall Portlet -->
+    <plone:portlet
+        name="portlets.PhotoWallPortlet"
+        addview=".photowall.AddForm"
+        assignment=".photowall.Assignment"
+        editview=".photowall.EditForm"
+        interface=".photowall.IPhotoWallPortlet"
+        renderer=".photowall.Renderer"
+        view_permission="zope2.View"
+        edit_permission="cmf.ManagePortal"
+    />
     <!-- Ajax Search -->
     <browser:page
         for="*"

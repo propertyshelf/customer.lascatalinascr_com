@@ -15,4 +15,9 @@
       title="Embedding Portlet"
       description="Show Embedding Portlet"
   />
+  <portlet
+      addview="portlets.PhotoWallPortlet"
+      title="PhotoWall Portlet"
+      description="Show PhotoWall Portlet"
+  />
 </portlets>

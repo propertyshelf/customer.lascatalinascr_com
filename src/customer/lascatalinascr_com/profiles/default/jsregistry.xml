@@ -2,6 +2,10 @@
 <object name="portal_javascripts">
     <javascript
         id="++resource++customer.lascatalinascr_com/ajaxSearch.js"
-        cacheable="True" compression="safe" cookable="True"
+        cacheable="True" compression="safe" cookable="False"
+        enabled="True" expression=""  inline="False"/>
+    <javascript
+        id="++resource++customer.lascatalinascr_com/photowall.js"
+        cacheable="True" compression="safe" cookable="False"
         enabled="True" expression=""  inline="False"/>
 </object>
