@@ -14,9 +14,68 @@
             <span tal:omit-tag="" tal:content="title" />
             <span class="portletTopRight"></span>
         </dt>
-        <dd class="portletItem"
-            tal:define="code view/get_code| nothing;">
-            PhotoWall     
+        <dd class="portletItem" tal:define="images view/images">
+            <div id="photowall"><div class="body" /></div>
+
+            <div id="photowall-images">
+                <tal:images tal:repeat="image images">
+                <span class="photowall-image-data"
+                    tal:attributes="data-img image/url;
+                                    data-thumb image/thumb;"/>
+                </tal:images>
+            </div>
+            <script type="text/javascript">
+                window.photo_array = []
+
+                $('#photowall-images .photowall-image-data').each(function(index){
+                    var thumbSrc = $(this).attr('data-thumb');
+                    _thumb_width =0;
+                    _thumb_height=0;
+
+                    $("<img/>").attr("src", thumbSrc).load(function() {
+
+                        _thumb_width = this.width; 
+                        _thumb_height = this.height;
+
+                        myPhoto ={}
+                        myPhoto.id= "pw_"+index;
+                        myPhoto.img=thumbSrc;
+                        myPhoto.height=_thumb_height;
+                        myPhoto.width=_thumb_width;
+                        myPhoto.th ={};
+                        myPhoto.th.src =thumbSrc;
+                        myPhoto.th.zoom_factor=1.5;
+                        myPhoto.th.zoom_src =$(this).attr('data-img');
+
+                        myPhoto.th.width=_thumb_width;
+                        myPhoto.th.height=_thumb_height;
+                        window.photo_array.push(myPhoto);
+
+                    });
+                    
+                });
+               
+            $(window).load(function(event, photo_array){
+
+                PhotoWall.init({
+                    el:                 '#photowall'               // Gallery element
+                    ,zoom:              true                    // Use zoom
+                    ,zoomAction:        'mouseenter'             // Zoom on action
+                    ,zoomTimeout:       500                      // Timeout before zoom
+                    ,zoomDuration:      100                      // Zoom duration time
+                    ,zoomImageBorder:   5                         // Zoomed image border size 
+                    ,showBox:           true                     // Enavle fullscreen mode
+                    ,showBoxSocial:     false                     // Show social buttons
+                    ,padding:           2                        // padding between images in gallery
+                    ,lineMaxHeight:     200                      // Max set height of pictures line
+                    ,lineMaxHeightDynamic: false                  // Dynamic lineMaxHeight. If set to True,
+                    ,baseScreenHeight:  600                      
+                });
+               
+                PhotoWall.load(window.photo_array);
+            })
+  
+            </script>
         </dd>
         <div class="visualClear"></div>
     </dl>
