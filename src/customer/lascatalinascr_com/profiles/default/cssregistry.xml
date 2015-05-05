@@ -7,7 +7,16 @@
         id="++resource++customer.lascatalinascr_com/portlet.css"
         cacheable="True"
         compression="safe"
-        cookable="True"
+        cookable="False"
+        enabled="1"
+        rel="stylesheet"
+        />
+
+    <stylesheet
+        id="++resource++customer.lascatalinascr_com/photowall.css"
+        cacheable="True"
+        compression="safe"
+        cookable="False"
         enabled="1"
         rel="stylesheet"
         />
