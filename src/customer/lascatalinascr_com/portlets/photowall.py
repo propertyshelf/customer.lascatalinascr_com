@@ -55,6 +55,16 @@ class Renderer(base.Renderer):
         else:
             return False
 
+    @property
+    def images(self):
+        """return the current ListingImages"""
+        data = getattr(self.context, 'data', None)
+        if data is not None:
+            images = data.get('images', None)
+            return images
+        else:
+            return None
+
 
 class AddForm(base.AddForm):
     """Add form for the PhotoWall Portlet."""
