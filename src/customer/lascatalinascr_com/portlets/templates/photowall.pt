@@ -54,13 +54,13 @@
 
                         myPhoto ={}
                         myPhoto.id= "pw_"+index;
-                        myPhoto.img=thumbSrc;
-                        myPhoto.height=_thumb_height;
-                        myPhoto.width=_thumb_width;
+                        myPhoto.img=imgSrc;
+                        myPhoto.height=_img_height;
+                        myPhoto.width=_img_width;
                         myPhoto.th ={};
-                        myPhoto.th.src =thumbSrc;
-                        myPhoto.th.zoom_factor=1.5;
-                        myPhoto.th.zoom_src =$(this).attr('data-img');
+                        myPhoto.th.src =miniSrc;
+                        myPhoto.th.zoom_factor=1.8;
+                        myPhoto.th.zoom_src =miniSrc;
 
                         myPhoto.th.width=_thumb_width;
                         myPhoto.th.height=_thumb_height;
