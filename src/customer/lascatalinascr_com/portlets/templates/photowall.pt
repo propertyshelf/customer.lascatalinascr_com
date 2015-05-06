@@ -7,9 +7,9 @@
     i18n:domain="customer.lascatalinascr_com"
     tal:omit-tag="">
     
-    <dl class="portlet embeddingPortlet"
+    <dl class="portlet photowallportlet"
         tal:define="title view/title | nothing">
-        <dt class="portletHeader" tal:condition="title">
+        <dt class="portletHeader" tal:condition="title" style="display:none;">
             <span class="portletTopLeft"></span>
             <span tal:omit-tag="" tal:content="title" />
             <span class="portletTopRight"></span>
@@ -88,6 +88,8 @@
                 });
                
                 PhotoWall.load(window.photo_array);
+                $('.photowallportlet .portletHeader').show();
+
             })
   
             </script>
