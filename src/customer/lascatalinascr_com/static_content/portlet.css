@@ -242,3 +242,7 @@ a.back2results:hover{
   background-color: #ffa500 !important;
 }
 
+.photowallportlet{
+  overflow: hidden;
+}
+
