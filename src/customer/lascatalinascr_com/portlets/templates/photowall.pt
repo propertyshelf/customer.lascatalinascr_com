@@ -36,6 +36,8 @@
 
                         _thumb_width = this.width; 
                         _thumb_height = this.height;
+                        imgSrc = thumbSrc.replace('_thumb', '_large');
+                        miniSrc = thumbSrc.replace('_thumb', '_mini');
 
                         myPhoto ={}
                         myPhoto.id= "pw_"+index;
