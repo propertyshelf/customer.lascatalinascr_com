@@ -53,13 +53,13 @@
                         }
 
                         myPhoto ={}
-                        myPhoto.id= "pw_"+index;
+                        myPhoto.id= index;
                         myPhoto.img=imgSrc;
                         myPhoto.height=_img_height;
                         myPhoto.width=_img_width;
                         myPhoto.th ={};
                         myPhoto.th.src =miniSrc;
-                        myPhoto.th.zoom_factor=1.8;
+                        myPhoto.th.zoom_factor=1.1;
                         myPhoto.th.zoom_src =miniSrc;
 
                         myPhoto.th.width=_thumb_width;
@@ -74,7 +74,7 @@
 
                 PhotoWall.init({
                     el:                 '#photowall'               // Gallery element
-                    ,zoom:              false                  // Use zoom
+                    ,zoom:              true                  // Use zoom
                     ,zoomAction:        'mouseenter'             // Zoom on action
                     ,zoomTimeout:       500                      // Timeout before zoom
                     ,zoomDuration:      100                      // Zoom duration time
