@@ -384,7 +384,7 @@ var PhotoWall = {
             menuBarContent: menuBar,
             onUpdate: update
         });
-        if(PhotoWall.options.showBoxSocial) 
+        if(PhotoWall.options.showBoxSocial)
             PhotoWall._init_socials();
     },
     /*
@@ -398,19 +398,24 @@ var PhotoWall = {
             img.stop().addClass('pw-photo-hover');
             // Make images to zoom only after some time to prevent zoom on mouse move.
             PhotoWall._zoom_timeout = setTimeout(function(){
-                img.removeClass('pw-photo-hover');              
+                img.removeClass('pw-photo-hover');
                 img.addClass('pw-photo-zoomed');
                 if(PhotoWall._zoom_timeout) {
                     PhotoWall._zs = [img.width(),img.height()];
                     var container  = img.parent().parent();
-                    var item   = PhotoWall._photos[container.attr('id')];
+
+                    myID=container.attr('id');
+                    myItemList=$.grep(PhotoWall._photos, function(e){ return e.id == myID; });
+                    var item =myItemList[0];
+                    //var item   = PhotoWall._photos[container.attr('id')];
+                    
                     // Preload zoomed image and replace old only when it loaded.
                     var bigIMG = $('<img/>');
                     bigIMG.attr('src',item.th.zoom_src);
-                    bigIMG.load(function(){ 
+                    bigIMG.load(function(){
                         img.attr('src',$(this).attr('src'));
                         $(this).remove();
-                    });     
+                    });
                     // calculating zoom image size
                     var w  = Math.round(img.width()*item.th.zoom_factor);
                     var h  = Math.round(img.height()*item.th.zoom_factor);
