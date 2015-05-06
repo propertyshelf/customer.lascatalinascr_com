@@ -70,7 +70,7 @@
                     
                 });
                
-            $(window).load(function(event, photo_array){
+            $(window).load(function(event){
 
                 PhotoWall.init({
                     el:                 '#photowall'               // Gallery element
