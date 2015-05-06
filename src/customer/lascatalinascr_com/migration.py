@@ -39,3 +39,4 @@ def migrate_to_1003(context):
     setup = getToolByName(site, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
     setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
+    setup.runImportStepFromProfile(PROFILE_ID, 'cssregistry')
