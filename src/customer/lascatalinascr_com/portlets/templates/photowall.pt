@@ -74,7 +74,7 @@
 
                 PhotoWall.init({
                     el:                 '#photowall'               // Gallery element
-                    ,zoom:              true                    // Use zoom
+                    ,zoom:              false                  // Use zoom
                     ,zoomAction:        'mouseenter'             // Zoom on action
                     ,zoomTimeout:       500                      // Timeout before zoom
                     ,zoomDuration:      100                      // Zoom duration time
