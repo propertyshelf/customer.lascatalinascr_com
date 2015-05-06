@@ -38,6 +38,19 @@
                         _thumb_height = this.height;
                         imgSrc = thumbSrc.replace('_thumb', '_large');
                         miniSrc = thumbSrc.replace('_thumb', '_mini');
+                        max =768; //max. Dimension for large image width or height
+                        maxMini =200;
+                        
+                        myratio = _thumb_width / _thumb_height;
+
+                        if(myratio<1){
+                            _img_width=max;
+                            _img_height= Math.round(max*myratio);  
+                        }
+                        else{
+                            _img_width=Math.round(max/myratio);
+                            _img_height= max;
+                        }
 
                         myPhoto ={}
                         myPhoto.id= "pw_"+index;
