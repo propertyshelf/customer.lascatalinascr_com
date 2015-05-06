@@ -53,7 +53,7 @@
                         }
 
                         myPhoto ={}
-                        myPhoto.id= index;
+                        myPhoto.id= 'id_'+Date.now()+'_'+index;
                         myPhoto.img=imgSrc;
                         myPhoto.height=_img_height;
                         myPhoto.width=_img_width;
